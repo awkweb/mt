@@ -26,7 +26,7 @@
 
 		<br>
 		
-		<%-- <%@include file="pm/positions.jsp"%> --%> --%>
+		<%@include file="pm/positions.jsp"%>
 	</div>
 </body>
 </html>

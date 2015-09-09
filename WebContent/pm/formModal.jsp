@@ -7,11 +7,9 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="modalTitle">Modal Title</h4>
+				<h4 class="modal-title" id="modalTitle">Create Order</h4>
 			</div>
-			<div class="modal-body">
-				<%@include file="form.jsp"%>
-			</div>
+			<%@include file="form.jsp"%>
 		</div>
 	</div>
 </div>

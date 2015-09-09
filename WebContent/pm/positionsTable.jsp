@@ -1,4 +1,7 @@
-<%@ page import="com.moneytree.beans.Order"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    
+<%@page import="com.mt.bean.Position"%>
 
 <table class="table table-bordered table-hover rowlink" data-link="row">
 	<tr>
@@ -8,12 +11,12 @@
 		<th>Value</th>
 		<th>Percentage</th>
 	</tr>
-	<% for (Order o : orders) { %>
+	<% for (Position pos : positions) { %>
 	<tr>
-		<td><%= o.getSecurity().getSymbol() %></td>
-		<td><%= o.getTotalQuantity() %></td>
-		<td><%= o.getLimitPrice() %></td>
-		<td><%= o.getTotalQuantity() * o.getLimitPrice() %></td>
+		<td><%= pos.getSymbol() %></td>
+		<td><%= pos.getQuantity() %></td>
+		<td><%= pos.getAvgPrice() %></td>
+		<td><%= pos.getQuantity() * pos.getAvgPrice() %></td>
 		<td>48.4%</td>
 	</tr>
 	<% } %>

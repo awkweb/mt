@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 
 <form class="form-horizontal" method="post" action="newOrder">
+<div class="modal-body">
 	<div class="form-group">
 		<label for="inputSymbol" class="col-sm-2 control-label">Symbol</label>
 		<div class="col-sm-10">
@@ -88,6 +89,7 @@
 		<div class="col-sm-10">
 			<textarea class="form-control" rows="3" name="notes"></textarea>
 		</div>
+	</div>
 	</div>
 	<div class="modal-footer">
 		<!-- <button type="button" class="btn btn-danger pull-left">Delete</button> -->
