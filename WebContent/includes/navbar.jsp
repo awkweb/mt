@@ -16,7 +16,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li
 					class="<%if (pageTitle.equals("Positions")) {%>active<%}%>"><a
-					href="/mt/pmPositions.jsp">Positions<span class="sr-only">(current)</span></a></li>
+					href="/mt/PMHomeServlet">Positions<span class="sr-only">(current)</span></a></li>
 				<li
 					class="<%if (pageTitle.equals("Orders")) {%>active<%}%>"><a
 					href="/mt/orderDisplayServlet">Orders</a></li>
@@ -24,8 +24,7 @@
 				<li><p class="navbar-text">
 						User:
 						<%= pm.getFname() + " " + pm.getLname() %></p></li>
-				<li><form method="post" action="logoutServlet">
-					<button type="submit" class="btn btn-default">Logout</button></form></li>
+				<li><li><a href="/mt/logoutServlet">Log Out</a></li></li>
 			</ul>
 		</div>
 	</div>
