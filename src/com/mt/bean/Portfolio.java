@@ -52,4 +52,12 @@ public class Portfolio {
 		return sum;
 	}
 	
+	public double getTotalMarketValue() {
+		int sum = 0;
+		for(Position pos:positions){
+			sum += (pos.getQuantity() * pos.getAvgPrice());
+		}
+		return sum;
+	}
+	
 }

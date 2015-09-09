@@ -6,18 +6,18 @@
 	
 	<% if (firstCollapse <= 0) { %>
 	<div class="panel panel-default">
-		<div class="panel-heading" role="tab" id="headingOne">
+		<div class="panel-heading" role="tab" id="heading<%=portfolio.getName()%>">
 			<h4 class="panel-title">
 				<a role="button" data-toggle="collapse" data-parent="#accordion"
-					href="#collapseOne" aria-expanded="true"
-					aria-controls="collapseOne"> Portfolio <%= portfolio.getName() %></a>
+					href="#collapse<%=portfolio.getName()%>" aria-expanded="true"
+					aria-controls="collapseOne"><%= portfolio.getName() %></a>
 					<% if (pageTitle.equals("Positions")) { %>
-					<small> Market Value $516,800</small>
+					<small> Market Value $<%= portfolio.getTotalMarketValue() %></small>
 					<% } %>
 			</h4>
 		</div>
 		<div id="collapse<%=portfolio.getName()%>" class="panel-collapse collapse in"
-			role="tabpanel" aria-labelledby="headingOne">
+			role="tabpanel" aria-labelledby="heading<%=portfolio.getName()%>">
 			<% if (pageTitle.equals("Positions")) { %>
 			<%@include file="../pm/positionsTable.jsp"%>
 			<% } else { %>
@@ -33,7 +33,7 @@
 					data-parent="#accordion" href="#collapse<%=portfolio.getName()%>" aria-expanded="false"
 					aria-controls="collapse<%=portfolio.getName()%>"><%=portfolio.getName()%></a>
 					<% if (pageTitle.equals("Positions")) { %>
-					<small> Market Value $516,800</small>
+					<small> Market Value $<%= portfolio.getTotalMarketValue() %></small>
 					<% } %>
 			</h4>
 		</div>

@@ -12,14 +12,14 @@
 		<th>Value</th>
 		<th>Percentage</th>
 	</tr>
-
+	
 	<% for (Position pos : positions) { %>
 	<tr>
 		<td><%= pos.getSymbol() %></td>
 		<td><%= pos.getQuantity() %></td>
-		<td>$<%= pos.getAvgPrice() %></td>
-		<td>$<%= pos.getQuantity() * pos.getAvgPrice() %></td>
-		<td><%= pos.getPercentage(portfolio.getTotalQuantity()) %></td>
+		<td>$<%= (Math.round(pos.getAvgPrice() * 100.0) / 100.0) %></td>
+		<td>$<%= (Math.round(pos.getQuantity() * pos.getAvgPrice() * 100.0) / 100.0) %></td>
+		<td><%= (Math.round(pos.getPercentage(portfolio.getTotalQuantity()) * 100.0) / 100.0) %>%</td>
 	</tr>
 	<% } %>
 </table>
