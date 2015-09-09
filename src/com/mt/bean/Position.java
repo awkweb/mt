@@ -1,20 +1,20 @@
 package com.mt.bean;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 
 public class Position {
 	
 	private String symbol;
 	private int quantity;
 	private double avgPrice;
+	private HashMap<String, ArrayList<Order>> ordersByStatus;
 	
-	public Position(String symbol, int quantity, double avgPrice) {
+	public Position(String symbol, int quantity, double avgPrice, HashMap<String, ArrayList<Order>> ordersByStatus) {
 		this.symbol = symbol;
 		this.quantity = quantity;
-		this.avgPrice = avgPrice;		
+		this.avgPrice = avgPrice;
+		this.ordersByStatus = ordersByStatus;
 	}
 	
 	public String getSymbol() {
@@ -39,6 +39,14 @@ public class Position {
 	
 	public void setAvgPrice(double avgPrice) {
 		this.avgPrice = avgPrice;
+	}
+	
+	public HashMap<String, ArrayList<Order>> getOrders() {
+		return ordersByStatus;
+	}
+	
+	public void setOrders(HashMap<String, ArrayList<Order>> ordersByStatus) {
+		this.ordersByStatus = ordersByStatus;
 	}	
 	
 	public double getPercentage(int totalPortfolioQuantity){

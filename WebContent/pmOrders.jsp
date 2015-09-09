@@ -2,7 +2,6 @@
     pageEncoding="ISO-8859-1"%>
 
 <%@page import="com.mt.bean.PortfolioManager"%>
-<%@page import="com.mt.bean.Portfolio"%>
 
 <%! String pageTitle = "Orders";%>
 
@@ -26,7 +25,7 @@
 		
 		<br>
 		
-		<%-- <%@include file="pm/orders.jsp"%> --%>
+		<%@include file="pm/orders.jsp"%>
 	</div>
 </body>
 </html>

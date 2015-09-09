@@ -68,6 +68,7 @@ public class LoginServlet extends DBConnectorServlet {
 				String fname = rs.getString("fname");
 				String lname = rs.getString("lname");
 				String role = rs.getString("role");
+				
 				ArrayList<Integer> portfolioIds = qm.getPortfolioIds(pmId);
 				ArrayList<Portfolio> portfolios = new ArrayList<Portfolio>();
 				for(int pId : portfolioIds){

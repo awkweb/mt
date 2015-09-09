@@ -62,7 +62,6 @@ public class NewOrderServlet extends DBConnectorServlet {
 			}
 			int id = qm.getNewOrderId();
 			int portfolioId = qm.getPortfolioId(pName, pmId);
-			System.out.println("portfolioId: " + portfolioId);
 			Order order = new Order(id, symbol, quantity, side, type, price, trader, notes);
 			qm.createOrder(portfolioId, order);
 		}catch (SQLException e) {

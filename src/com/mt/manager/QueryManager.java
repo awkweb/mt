@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.mt.bean.Order;
 import com.mt.bean.Portfolio;
@@ -49,6 +50,15 @@ public class QueryManager {
 		return orders;		
 	}
 	
+	public HashMap<String, ArrayList<Order>> getOrderMap(int portfolioId, String symbol){
+		HashMap<String, ArrayList<Order>> map = new HashMap<String, ArrayList<Order>>();
+		String[] statuses = {"open", "sent for execution", "successful", "failed", "partially filled", "cancelled"};
+		for(int i=0; i<statuses.length;i++){
+			map.put(statuses[i], getPositionOrders(portfolioId, symbol, statuses[i]));
+		}
+		return map;
+	}
+	
 	public ArrayList<Position> getPortfolioPositions(int portfolioId){
 		String sql = "SELECT symbol, SUM(quantity) as quantity, AVG(price) as price "
 				+ "FROM orders WHERE port_id=? GROUP BY symbol";
@@ -61,7 +71,7 @@ public class QueryManager {
 				String symbol = rs.getString("symbol");
 				int quantity = rs.getInt("quantity");
 				double avgPrice = rs.getDouble("price");	
-				Position position = new Position(symbol, quantity, avgPrice);
+				Position position = new Position(symbol, quantity, avgPrice, getOrderMap(portfolioId, symbol));
 				positions.add(position);
 			}				
 		} catch (Exception e) {

@@ -11,12 +11,11 @@
 				<a role="button" data-toggle="collapse" data-parent="#accordion"
 					href="#collapse<%=portfolio.getName()%>" aria-expanded="true"
 					aria-controls="collapseOne"><%= portfolio.getName() %></a>
-					<small> Market Value $<%= portfolio.getTotalMarketValue() %></small>
 			</h4>
 		</div>
 		<div id="collapse<%=portfolio.getName()%>" class="panel-collapse collapse in"
 			role="tabpanel" aria-labelledby="heading<%=portfolio.getName()%>">
-			<%@include file="../pm/positionsTable.jsp"%>
+			<%@include file="../pm/ordersTable.jsp"%>
 		</div>
 	</div>
 	<% } else { %>
@@ -26,12 +25,11 @@
 				<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
 					href="#collapse<%=portfolio.getName()%>" aria-expanded="false"
 					aria-controls="collapseOne"><%= portfolio.getName() %></a>
-					<small> Market Value $<%= portfolio.getTotalMarketValue() %></small>
 			</h4>
 		</div>
 		<div id="collapse<%=portfolio.getName()%>" class="panel-collapse collapse"
 			role="tabpanel" aria-labelledby="heading<%=portfolio.getName()%>">
-			<%@include file="../pm/positionsTable.jsp"%>
+			<%@include file="../pm/ordersTable.jsp"%>
 		</div>
 	</div>
 	<% } %>

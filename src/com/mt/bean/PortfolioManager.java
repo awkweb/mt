@@ -29,7 +29,5 @@ public class PortfolioManager extends User {
 	public void setPortfolios(ArrayList<Portfolio> portfolios) {
 		this.portfolios = portfolios;
 	}
-	
-	
 
 }

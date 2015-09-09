@@ -2,12 +2,12 @@
     pageEncoding="ISO-8859-1"%>
 
 <%@page import="com.mt.bean.PortfolioManager"%>
-<%@page import="com.mt.bean.Portfolio"%>
+
 
 <%! String pageTitle = "Positions";%>
 
 <%! PortfolioManager pm; %> 
-<% pm = ((PortfolioManager)request.getAttribute("pm")); %>  
+<% pm = ((PortfolioManager)session.getAttribute("pm")); %>  
 
 <!DOCTYPE html>
 <html>
