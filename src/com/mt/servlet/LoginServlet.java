@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mt.bean.DBConnector;
 import com.mt.bean.Portfolio;
@@ -74,6 +75,8 @@ public class LoginServlet extends DBConnectorServlet {
 				}				
 				PortfolioManager pm = new PortfolioManager(pmId, username, fname, lname, role, portfolioIds, portfolios);
 				request.setAttribute("pm", pm);
+				HttpSession session=request.getSession();  
+		        session.setAttribute("pm",pm);
 				flag = true;
 			}
 		} catch (SQLException e) {

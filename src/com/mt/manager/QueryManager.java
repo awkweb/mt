@@ -21,13 +21,14 @@ public class QueryManager {
 		this.connection = connection;
 	}
 	
-	public ArrayList<Order> getPositionOrders(int portfolioId, String symbol){		
-		String sql = "SELECT * FROM orders WHERE port_id=? AND symbol =?";
+	public ArrayList<Order> getPositionOrders(int portfolioId, String symbol, String status){		
+		String sql = "SELECT * FROM orders WHERE port_id=? AND symbol =? AND status=?";
 		ArrayList<Order> orders = new ArrayList<Order>();
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, portfolioId);
 			ps.setString(2, symbol);
+			ps.setString(3, status);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				if(rs.getString("symbol").equals(symbol)){
@@ -122,7 +123,7 @@ public class QueryManager {
 	}
 	
 	public void createOrder(int portfolioId, Order order){
-		String sql = "INSERT INTO `mtdb`.`orders` (`id`, `port_id`, `symbol`, `quantity`, `side`, `type`, `price`, `trader`, `notes`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO `mtdb`.`orders` (`id`, `port_id`, `symbol`, `quantity`, `side`, `type`, `price`, `trader`, `notes`,`status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, getNewOrderId());
@@ -134,6 +135,7 @@ public class QueryManager {
 			ps.setDouble(7, order.getPrice());
 			ps.setString(8, order.getTrader());
 			ps.setString(9, order.getNotes());
+			ps.setString(10, "open");
 			ps.execute();
 				
 		} catch (Exception e) {

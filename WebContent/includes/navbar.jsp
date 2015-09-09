@@ -19,7 +19,7 @@
 					href="/mt/pmPositions.jsp">Positions<span class="sr-only">(current)</span></a></li>
 				<li
 					class="<%if (pageTitle.equals("Orders")) {%>active<%}%>"><a
-					href="/MoneyTreeGroupI/pmOrders.jsp">Orders</a></li>
+					href="/mt/orderDisplayServlet">Orders</a></li>
 				<%@include file="notifications.jsp"%>
 				<li><p class="navbar-text">
 						User:
