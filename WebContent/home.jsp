@@ -3,13 +3,15 @@
 <%@page import="com.mt.bean.PortfolioManager"%>
 <%@page import="com.mt.bean.Portfolio"%>
 
+<%! String pageTitle = "Login"; %>
+
 <%! PortfolioManager pm; %> 
 <% pm = ((PortfolioManager)request.getAttribute("pm")); %>   
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>Home</title>
+	<%@include file="includes/head.jsp" %>
 </head>
 <body>
 	<% for (Portfolio portfolio: pm.getPortfolios()) { %>

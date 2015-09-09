@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%! String pageTitle = "Login"; %>
+
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login</title>
+	<%@include file="includes/head.jsp" %>
 </head>
 <body class="container login">
 	<%! boolean error; %> 

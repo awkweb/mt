@@ -89,5 +89,9 @@
 			<textarea class="form-control" rows="3" name="notes"></textarea>
 		</div>
 	</div>
-	<button type="submit" class="btn btn-primary">Submit</button>
+	<div class="modal-footer">
+		<!-- <button type="button" class="btn btn-danger pull-left">Delete</button> -->
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</div>
 </form>

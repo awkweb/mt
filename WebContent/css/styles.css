@@ -1,0 +1,13 @@
+.login {
+	margin-top: 10rem;
+}
+
+.alert {
+	margin-top: 2rem;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}

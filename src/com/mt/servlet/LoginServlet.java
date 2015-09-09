@@ -73,9 +73,6 @@ public class LoginServlet extends DBConnectorServlet {
 					portfolios.add(qm.getPortfolio(pId));
 				}				
 				PortfolioManager pm = new PortfolioManager(pmId, username, fname, lname, role, portfolioIds, portfolios);
-				//System.out.println(pm.getUsername());
-				//System.out.println(pm.getPortfolioIds());
-				//System.out.println(pm.getPortfolios().get(1).getName());
 				request.setAttribute("pm", pm);
 				flag = true;
 			}
@@ -93,7 +90,7 @@ public class LoginServlet extends DBConnectorServlet {
 		}
 		
 		if (flag) {
-			RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("pmPositions.jsp");
 			rd.forward(request, response);
 		} else {
 			request.setAttribute("error", true);
