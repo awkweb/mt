@@ -7,6 +7,7 @@ public class Portfolio {
 	private int id;
 	private String name;
 	private ArrayList<Position> positions;
+	private int totalQuantity;
 	
 	public Portfolio(int id, String name, ArrayList<Position> positions) {
 		super();
@@ -41,6 +42,14 @@ public class Portfolio {
 
 	public void setPositions(ArrayList<Position> positions) {
 		this.positions = positions;
+	}
+	
+	public int getTotalQuantity(){
+		int sum = 0;
+		for(Position pos:positions){
+			sum += pos.getQuantity();
+		}
+		return sum;
 	}
 	
 }

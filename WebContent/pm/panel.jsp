@@ -10,13 +10,13 @@
 			<h4 class="panel-title">
 				<a role="button" data-toggle="collapse" data-parent="#accordion"
 					href="#collapseOne" aria-expanded="true"
-					aria-controls="collapseOne"> Portfolio <%= pName %></a>
+					aria-controls="collapseOne"> Portfolio <%= portfolio.getName() %></a>
 					<% if (pageTitle.equals("Positions")) { %>
 					<small> Market Value $516,800</small>
 					<% } %>
 			</h4>
 		</div>
-		<div id="collapse<%=pName%>" class="panel-collapse collapse in"
+		<div id="collapse<%=portfolio.getName()%>" class="panel-collapse collapse in"
 			role="tabpanel" aria-labelledby="headingOne">
 			<% if (pageTitle.equals("Positions")) { %>
 			<%@include file="../pm/positionsTable.jsp"%>
@@ -27,18 +27,18 @@
 	</div>
 	<% } else { %>
 	<div class="panel panel-default">
-		<div class="panel-heading" role="tab" id="heading<%=pName%>">
+		<div class="panel-heading" role="tab" id="heading<%=portfolio.getName()%>">
 			<h4 class="panel-title">
 				<a class="collapsed" role="button" data-toggle="collapse"
-					data-parent="#accordion" href="#collapse<%=pName%>" aria-expanded="false"
-					aria-controls="collapse<%=pName%>"><%=pName%></a>
+					data-parent="#accordion" href="#collapse<%=portfolio.getName()%>" aria-expanded="false"
+					aria-controls="collapse<%=portfolio.getName()%>"><%=portfolio.getName()%></a>
 					<% if (pageTitle.equals("Positions")) { %>
 					<small> Market Value $516,800</small>
 					<% } %>
 			</h4>
 		</div>
-		<div id="collapse<%=pName%>" class="panel-collapse collapse" role="tabpanel"
-			aria-labelledby="heading<%=pName%>">
+		<div id="collapse<%=portfolio.getName()%>" class="panel-collapse collapse" role="tabpanel"
+			aria-labelledby="heading<%=portfolio.getName()%>">
 			<% if (pageTitle.equals("Positions")) { %>
 			<%@include file="../pm/positionsTable.jsp"%>
 			<% } else { %>

@@ -20,25 +20,29 @@ public class Position {
 	public String getSymbol() {
 		return symbol;
 	}
+	
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
+	
 	public int getQuantity() {
 		return quantity;
 	}
+	
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	
 	public double getAvgPrice() {
 		return avgPrice;
 	}
+	
 	public void setAvgPrice(double avgPrice) {
 		this.avgPrice = avgPrice;
 	}	
-	public double getPercentage(double totalPortfolioQuantity){
-		return quantity/totalPortfolioQuantity * 100;
+	
+	public double getPercentage(int totalPortfolioQuantity){
+		return ((double)this.quantity / (double)totalPortfolioQuantity) * 100.00;
 	}
 	
-	
-
 }

@@ -8,14 +8,12 @@
 <%@page import="com.mt.bean.Position"%>
     
 <%! int firstCollapse = 0; %>
-<%! String pName; %>
 <%! ArrayList<Position> positions; %>
 
 <div class="row">
 	<div class="col-sm-12">
 		
 		<% for (Portfolio portfolio : pm.getPortfolios()) { %>
-			<% pName = portfolio.getName(); %>
 			<% positions = portfolio.getPositions(); %>
 			<%@ include file="panel.jsp"%>
 			<% firstCollapse++; %>
