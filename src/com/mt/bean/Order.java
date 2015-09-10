@@ -11,11 +11,13 @@ public class Order {
 	private int trader;
 	private String notes;
 	private int block_order_id;
+	private String pmName;
+	private String status;
 	
 	public Order(int id, String symbol, 
 			int quantity, String side, String type, 
 			double price, int trader,
-			String notes, int block_order_id) {
+			String notes) {
 		super();
 		this.id = id;
 
@@ -26,7 +28,6 @@ public class Order {
 		this.price = price;
 		this.trader = trader;
 		this.notes = notes;
-		this.block_order_id = block_order_id;
 	}
 
 	public int getBlock_order_id() {
@@ -99,6 +100,22 @@ public class Order {
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	public String getPmName() {
+		return pmName;
+	}
+
+	public void setPmName(String pmName) {
+		this.pmName = pmName;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 

@@ -36,8 +36,6 @@ public class QueryManager {
 			while (rs.next()) {
 				if(rs.getString("symbol").equals(symbol)){
 					int id = rs.getInt("id");
-					int side_id = rs.getInt("side_id");
-					int order_type_id = rs.getInt("order_type_id");
 					int quantity = rs.getInt("quantity");
 					String side = rs.getString("side");
 					String type = rs.getString("type");
@@ -45,7 +43,8 @@ public class QueryManager {
 					int trader = rs.getInt("trader");
 					String notes = rs.getString("notes");	
 					int block_order_id = rs.getInt("block_order_id");
-					Order order = new Order(id, side_id, order_type_id, symbol, quantity, side, type, price, trader, notes, block_order_id);
+					Order order = new Order(id, symbol, quantity, side, type, price, trader, notes);
+					order.setBlock_order_id(block_order_id);
 					orders.add(order);
 				}				
 			}
@@ -250,15 +249,16 @@ public class QueryManager {
 			ps.setInt(1, block_id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				underlyingOrders.add(new Order(rs.getInt("id"),
-											   rs.getString("symbol"),
-											   rs.getInt("quantity"),
-											   rs.getString("side"),
-											   rs.getString("type"),
-											   rs.getDouble("price"),
-											   rs.getInt("trader"),
-											   rs.getString("notes"),
-											   rs.getInt("block_order_id")));
+				Order o = new Order(rs.getInt("id"),
+						   rs.getString("symbol"),
+						   rs.getInt("quantity"),
+						   rs.getString("side"),
+						   rs.getString("type"),
+						   rs.getDouble("price"),
+						   rs.getInt("trader"),
+						   rs.getString("notes"));
+				o.setBlock_order_id(rs.getInt("block_order_id"));
+				underlyingOrders.add(o);
 			}
 		} catch (SQLException e){
 			e.printStackTrace();
@@ -266,7 +266,40 @@ public class QueryManager {
 		return underlyingOrders;
 	}
 	
-	public ArrayList<Order> getTraderOrders(String traderName){		
+	public ArrayList<Order> getTraderOrdersForId(int userId){		
+		String sql = 
+				 "SELECT * FROM orders WHERE trader=?";
+		ArrayList<Order> orders = new ArrayList<Order>();
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, userId);
+	
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+					int id = rs.getInt("id");
+										
+				String symbol=rs.getString("symbol");
+				int quantity = rs.getInt("quantity");
+				String side = rs.getString("side");
+				String type = rs.getString("type");
+				double price = rs.getDouble("price");
+				int traderId = rs.getInt("trader");
+				String status = rs.getString("status");
+				String notes = rs.getString("notes");
+
+				Order order = new Order(id, symbol, quantity, side, type, price, traderId, notes);
+				order.setStatus(status);
+				
+				/*order.setPmName(portfolio_manager);*/
+				orders.add(order);			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return orders;		
+	}
+	
+	/*public ArrayList<Order> getTraderOrders(String traderName){		
 		String sql = 
 				 "SELECT u1.username,orders.trader `Trader ID`,u1.fname `Trader First Name`,u2.lname `Trader Last name`,orders.port_id `Portfolio Manager ID`,"
 				 + "u2.fname,u2.lname,orders.symbol,orders.block_order_id,orders.quantity,orders.side,orders.type,"
@@ -289,14 +322,16 @@ public class QueryManager {
 					String side = rs.getString("side");
 					String type = rs.getString("type");
 					double price = rs.getDouble("price");
+					int traderId = rs.getInt("Trader ID");
 					String status = rs.getString("status");
 					String notes = rs.getString("notes");
 					String portfolio_manager_first_name =rs.getString("fname");
 					String portfolio_manager_last_name =rs.getString("lname");
 					String portfolio_manager = portfolio_manager_first_name.concat(" ");					
 					portfolio_manager = portfolio_manager_first_name.concat(portfolio_manager_last_name);								
-					Order order = new Order(id, symbol, quantity, side, type, price, traderName,notes,status);
-					order.setPortfolioManager(portfolio_manager);
+					Order order = new Order(id, symbol, quantity, side, type, price, traderId, notes);
+					order.setPmName(portfolio_manager);
+					order.setStatus(status);
 					System.out.println(order);
 					orders.add(order);
 				}				
@@ -305,5 +340,5 @@ public class QueryManager {
 			e.printStackTrace();
 		}
 		return orders;		
-	}
+	}*/
 }

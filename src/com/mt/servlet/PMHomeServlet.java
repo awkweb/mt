@@ -69,7 +69,7 @@ public class PMHomeServlet extends DBConnectorServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		finally{
+		/*finally{
 			try {
 				connection.close();
 				System.out.println("Connection closed");
@@ -77,7 +77,7 @@ public class PMHomeServlet extends DBConnectorServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		}*/
 	}
 
 }

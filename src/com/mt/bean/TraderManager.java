@@ -5,13 +5,12 @@ import java.util.ArrayList;
 public class TraderManager extends User {
 	
 	private ArrayList<Integer> blockIds;
-	private ArrayList<Block> blockList; 
+	private ArrayList<Block> blockList;
+	private ArrayList<Order> orders; 
 
 	public TraderManager(int id, String username, String fname, String lname,
-			String role, ArrayList<Integer> blockIds, ArrayList<Block> blockList) {
+			String role) {
 		super(id, username, fname, lname, role);
-		this.blockIds = blockIds;
-		this.blockList = blockList;
 	}
 
 	public ArrayList<Integer> getBlockIds() {
@@ -28,6 +27,14 @@ public class TraderManager extends User {
 
 	public void setBlockList(ArrayList<Block> blockList) {
 		this.blockList = blockList;
+	}
+
+	public ArrayList<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(ArrayList<Order> orders) {
+		this.orders = orders;
 	}
 	
 }

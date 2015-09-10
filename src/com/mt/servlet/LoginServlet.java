@@ -17,10 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.mt.bean.DBConnector;
 import com.mt.bean.Order;
 import com.mt.bean.Portfolio;
 import com.mt.bean.PortfolioManager;
+import com.mt.bean.TraderManager;
 import com.mt.manager.QueryManager;
 
 /**
@@ -67,31 +67,37 @@ public class LoginServlet extends DBConnectorServlet {
 			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				int pmId = rs.getInt("userid");
+				int userId = rs.getInt("userid");
 				String fname = rs.getString("fname");
 				String lname = rs.getString("lname");
 				String role = rs.getString("role");
 				
 				if(role.equals("pm")){
-					ArrayList<Integer> portfolioIds = qm.getPortfolioIds(pmId);
+					ArrayList<Integer> portfolioIds = qm.getPortfolioIds(userId);
 					ArrayList<Portfolio> portfolios = new ArrayList<Portfolio>();
 					for(int pId : portfolioIds){
 						portfolios.add(qm.getPortfolio(pId));
 					}				
-					PortfolioManager pm = new PortfolioManager(pmId, username, fname, lname, role, portfolioIds, portfolios);
+					PortfolioManager pm = new PortfolioManager(userId, username, fname, lname, role, portfolioIds, portfolios);
 					request.setAttribute("pm", pm);
 					HttpSession session=request.getSession();  
 			        session.setAttribute("pm",pm);
 			        userPm = true;
 				}else{
-					ArrayList<Order> orders = qm.getTraderOrders(username);
+					ArrayList<Order> orders = qm.getTraderOrdersForId(userId);
+					TraderManager trader = new TraderManager(userId, username, fname, lname, role);
+					System.out.println(trader);
+					trader.setOrders(orders);
+					System.out.println(trader);
+					HttpSession session=request.getSession();  
+			        session.setAttribute("trader",trader);
 				}
 		        authenitcatedUser = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		finally{
+		/*finally{
 			try {
 				connection.close();
 				System.out.println("Connection closed");
@@ -99,7 +105,7 @@ public class LoginServlet extends DBConnectorServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		}*/
 		
 		if (authenitcatedUser) {
 			if(userPm){				

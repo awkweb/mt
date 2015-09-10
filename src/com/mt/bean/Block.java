@@ -79,14 +79,6 @@ public class Block {
 		this.symbol = symbol;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
 	public int getOpen_quantity() {
 		return open_quantity;
 	}
@@ -152,7 +144,7 @@ public class Block {
 	}
 
 	
-	// Cato
+	/*// Cato
 	public void addOrderToBlock(Order order) {
 		// need some way to keep track of which orders belong to
 		// a block!!!
@@ -165,7 +157,7 @@ public class Block {
 			System.out.println("Error! Cannot add order to block! + "+ " Side and Symbol must match");
 		}
 
-	}
+	}*/
 	
 	// Cato - need help
 	public void updateBlockOrderHashMap(Order order) {
