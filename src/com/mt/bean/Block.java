@@ -6,6 +6,8 @@ import java.util.HashMap;
 public class Block {
 	
 	private int block_id;
+	private int block_type_id;
+	private int side_id;
 	private String symbol;
 	private String status;
 	private int open_quantity;
@@ -14,15 +16,22 @@ public class Block {
 	private double limit_price;
 	private double stop_price;
 	private ArrayList<Order> blockOrders;
-	private HashMap<Integer, ArrayList<Order>> blockOrderMap;
+	private HashMap<Integer, ArrayList<Order>> blockOrderMap; // ?
+	
+	public Block(){
+		// empty constructor
+	}
 
-	public Block(int block_id, String symbol, String status, 
+	public Block(int block_id, int block_type_id, 
+			int side_id, String symbol, String status, 
 			int open_quantity, int total_quantity, int exec_quantity, 
 				double limit_price , double stop_price, 
 				ArrayList<Order> blockOrders, 
 				HashMap<Integer, ArrayList<Order>> blockOrderMap) {
 		super();
 		this.block_id = block_id;
+		this.block_type_id = block_type_id;
+		this.side_id = side_id;
 		this.symbol = symbol;
 		this.status = status;
 		this.open_quantity = open_quantity;
@@ -114,14 +123,44 @@ public class Block {
 		this.blockOrders = blockOrders;
 	}
 	
-	// Jai and Cato
-	public void addOrderToBlock() {
-		// need some way to keep track of which orders belong to
-		// a block
+	public int getSide_id() {
+		return side_id;
+	}
+
+	public void setSide_id(int side_id) {
+		this.side_id = side_id;
 	}
 	
-	// Cato and Jai
-	public void updateBlockOrderHashMap() {
-		
+	public int getBlock_type_id() {
+		return block_type_id;
 	}
+
+	public void setBlock_type_id(int block_type_id) {
+		this.block_type_id = block_type_id;
+	}
+
+	
+	// Cato
+	public void addOrderToBlock(Order order) {
+		// need some way to keep track of which orders belong to
+		// a block!!!
+		if (this.symbol.equals(order.getSymbol()) &&
+				this.side_id == order.getSide_id() &&
+				this.block_type_id == order.getOrder_type_id()) {
+			this.blockOrders.add(order);
+			this.updateBlockOrderHashMap(order);
+		}
+		else {
+			System.out.println("Error! Cannot add order to block! + "+ " Side and Symbol must match");
+		}
+
+	}
+	
+	// Cato
+	public void updateBlockOrderHashMap(Order order) {
+		order.setBlock_order_id(this.block_id);
+	}
+
+	
+	
 }

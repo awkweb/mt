@@ -3,6 +3,8 @@ package com.mt.bean;
 public class Order {
 	
 	private int id;
+	private int side_id;
+	private int order_type_id;
 	private String symbol;
 	private int quantity;
 	private String side;
@@ -10,11 +12,14 @@ public class Order {
 	private double price;
 	private String trader;
 	private String notes;
+	private int block_order_id;
 	
-	public Order(int id, String symbol, int quantity, String side, String type, double price, String trader,
-			String notes) {
+	public Order(int id, int side_id, int order_type_id, String symbol, int quantity, String side, String type, double price, String trader,
+			String notes, int block_order_id) {
 		super();
 		this.id = id;
+		this.side_id = side_id;
+		this.order_type_id = order_type_id;
 		this.symbol = symbol;
 		this.quantity = quantity;
 		this.side = side;
@@ -22,6 +27,15 @@ public class Order {
 		this.price = price;
 		this.trader = trader;
 		this.notes = notes;
+		this.block_order_id = block_order_id;
+	}
+
+	public int getBlock_order_id() {
+		return block_order_id;
+	}
+
+	public void setBlock_order_id(int block_order_id) {
+		this.block_order_id = block_order_id;
 	}
 
 	public int getId() {
@@ -87,5 +101,22 @@ public class Order {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
+
+	public int getSide_id() {
+		return side_id;
+	}
+
+	public void setSide_id(int side_id) {
+		this.side_id = side_id;
+	}
+	
+	public int getOrder_type_id() {
+		return order_type_id;
+	}
+
+	public void setOrder_type_id(int order_type_id) {
+		this.order_type_id = order_type_id;
+	}
+
 
 }
