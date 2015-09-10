@@ -54,7 +54,9 @@ public class LoginServlet extends DBConnectorServlet {
 		String username = request.getParameter("username");		
 		String password = request.getParameter("password");
 		String sql = "SELECT * FROM users WHERE username=? AND password=?";		
-		boolean flag = false;
+		boolean authenitcatedUser = false;
+		boolean userPm = false;
+	
 		try {
 			if(connection.isClosed()){
 				connection = getConnection();
@@ -69,16 +71,19 @@ public class LoginServlet extends DBConnectorServlet {
 				String lname = rs.getString("lname");
 				String role = rs.getString("role");
 				
-				ArrayList<Integer> portfolioIds = qm.getPortfolioIds(pmId);
-				ArrayList<Portfolio> portfolios = new ArrayList<Portfolio>();
-				for(int pId : portfolioIds){
-					portfolios.add(qm.getPortfolio(pId));
-				}				
-				PortfolioManager pm = new PortfolioManager(pmId, username, fname, lname, role, portfolioIds, portfolios);
-				request.setAttribute("pm", pm);
-				HttpSession session=request.getSession();  
-		        session.setAttribute("pm",pm);
-				flag = true;
+				if(role.equals("pm")){
+					ArrayList<Integer> portfolioIds = qm.getPortfolioIds(pmId);
+					ArrayList<Portfolio> portfolios = new ArrayList<Portfolio>();
+					for(int pId : portfolioIds){
+						portfolios.add(qm.getPortfolio(pId));
+					}				
+					PortfolioManager pm = new PortfolioManager(pmId, username, fname, lname, role, portfolioIds, portfolios);
+					request.setAttribute("pm", pm);
+					HttpSession session=request.getSession();  
+			        session.setAttribute("pm",pm);
+			        userPm = true;
+				}
+		        authenitcatedUser = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -93,9 +98,14 @@ public class LoginServlet extends DBConnectorServlet {
 			}
 		}
 		
-		if (flag) {
-			RequestDispatcher rd = request.getRequestDispatcher("pmPositions.jsp");
-			rd.forward(request, response);
+		if (authenitcatedUser) {
+			if(userPm){				
+				RequestDispatcher rd = request.getRequestDispatcher("pmPositions.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = request.getRequestDispatcher("traderOrders.jsp");
+				rd.forward(request, response);	
+			}
 		} else {
 			request.setAttribute("error", true);
 			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
