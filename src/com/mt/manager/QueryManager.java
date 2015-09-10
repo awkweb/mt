@@ -3,9 +3,11 @@ package com.mt.manager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.mt.bean.Block;
 import com.mt.bean.Order;
 import com.mt.bean.Portfolio;
 import com.mt.bean.Position;
@@ -40,8 +42,8 @@ public class QueryManager {
 					double price = rs.getDouble("price");
 					String trader = rs.getString("trader");
 					String notes = rs.getString("notes");					
-					String portfolio_manager=rs.getString("portfolio_manager");
-					Order order = new Order(id, symbol, quantity, side, type, price, trader, notes,portfolio_manager,status);
+					Order order = new Order(id, symbol, quantity, side, type, price, trader,
+							notes,status);
 					System.out.println(order);
 					orders.add(order);
 				}				
@@ -69,8 +71,7 @@ public class QueryManager {
 			while (rs.next()) {
 				if(rs.getString("trader").equals(traderName)){
 					int id = rs.getInt("id");
-					
-					
+										
 					String symbol=rs.getString("symbol");
 					int quantity = rs.getInt("quantity");
 					String side = rs.getString("side");
@@ -78,17 +79,17 @@ public class QueryManager {
 					double price = rs.getDouble("price");
 					String status = rs.getString("status");
 					String notes = rs.getString("notes");
-					
 					String portfolio_manager_first_name =rs.getString("fname");
 					String portfolio_manager_last_name =rs.getString("lname");
 					String portfolio_manager = portfolio_manager_first_name.concat(" ");					
-					portfolio_manager = portfolio_manager_first_name.concat(portfolio_manager_last_name);
-					Order order = new Order(id, symbol, quantity, side, type, price, traderName, notes,portfolio_manager,status);
+					portfolio_manager = portfolio_manager_first_name.concat(portfolio_manager_last_name);								
+					Order order = new Order(id, symbol, quantity, side, type, price, traderName,notes,status);
+					order.setPortfolio_manager(portfolio_manager);
 					System.out.println(order);
 					orders.add(order);
 				}				
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return orders;		
@@ -118,7 +119,7 @@ public class QueryManager {
 				Position position = new Position(symbol, quantity, avgPrice, getOrderMap(portfolioId, symbol));
 				positions.add(position);
 			}				
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return positions;	
@@ -134,7 +135,7 @@ public class QueryManager {
 			while (rs.next()) {
 				portfolioIds.add(rs.getInt("id"));
 			}				
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return portfolioIds;
@@ -153,7 +154,7 @@ public class QueryManager {
 				portfolio.setPositions(positions);
 				portfolio.setName(rs.getString("name"));
 			}				
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return portfolio;
@@ -170,7 +171,7 @@ public class QueryManager {
 				return ++lastId;
 			}
 		}
-		catch (Exception e) {
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return -1;
@@ -192,7 +193,7 @@ public class QueryManager {
 			ps.setString(10, "open");
 			ps.execute();
 				
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -209,15 +210,10 @@ public class QueryManager {
 			while (rs.next()) {
 				return rs.getInt("id");
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return -1;
-	}
-	
-	public ArrayList<Integer> getBlockIDs(int pmID) {
-		return null;
-		
 	}
 	
 	// Cato and Jai
@@ -225,8 +221,39 @@ public class QueryManager {
 		// 
 	}
 	
+	public ArrayList<Integer> getBlockIDs(int traderID) {
+		System.out.println("traderID: " + traderID);
+		String sql = "SELECT block_id FROM block WHERE trader_id = ?";
+		ArrayList<Integer> blockIds = new ArrayList<Integer>();
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, traderID);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				blockIds.add(rs.getInt("block_id"));
+			}				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return blockIds;
+	}
 	
+	public Block getBlock(int traderID) {
+		String sql = "SELECT * FROM block WHERE trader_id = ?";
+		
+		return null;
+	}
 	
+	public ArrayList<Order> getOrdersUnderlyingBlock(int block_id) {
+		String sql = "SELECT * FROM orders WHERE block_order_id = ? ";
+		ArrayList<Order> underlyingOrders = new ArrayList<Order>();
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, block_id);
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return underlyingOrders;
+	}
 	
-
 }
