@@ -171,6 +171,18 @@ public class QueryManager {
 		return -1;
 	}
 	
+	public ArrayList<Integer> getBlockIDs(int pmID) {
+		return null;
+		
+	}
+	
+	// Cato and Jai
+	public void createBlock() {
+		// 
+	}
+	
+	
+	
 	
 
 }
