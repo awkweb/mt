@@ -42,7 +42,7 @@ public class QueryManager {
 					String side = rs.getString("side");
 					String type = rs.getString("type");
 					double price = rs.getDouble("price");
-					String trader = rs.getString("trader");
+					int trader = rs.getInt("trader");
 					String notes = rs.getString("notes");	
 					int block_order_id = rs.getInt("block_order_id");
 					Order order = new Order(id, side_id, order_type_id, symbol, quantity, side, type, price, trader, notes, block_order_id);
@@ -148,7 +148,7 @@ public class QueryManager {
 			ps.setString(5, order.getSide());
 			ps.setString(6, order.getType());
 			ps.setDouble(7, order.getPrice());
-			ps.setString(8, order.getTrader());
+			ps.setInt(8, order.getTrader());
 			ps.setString(9, order.getNotes());
 			ps.setString(10, "open");
 			ps.execute();
@@ -177,7 +177,7 @@ public class QueryManager {
 	}
 	
 	/*// Cato - need help
-	public void createBlock(int block_id) {
+	public void createBlock(int block_id, ArrayList<Order> orderList) {
 		String sql = "INSERT INTO `mtdb`.`block` (`block_id`, `symbol`, `status`, `open_quantity`, `total_quantity`, `exec_quantity`, `limit_price`, `stop_price`, `trader_id`,`side_order_id`, `order_type_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -258,7 +258,7 @@ public class QueryManager {
 											   rs.getString("side"),
 											   rs.getString("type"),
 											   rs.getDouble("price"),
-											   rs.getString("trader"),
+											   rs.getInt("trader"),
 											   rs.getString("notes"),
 											   rs.getInt("block_order_id")));
 			}

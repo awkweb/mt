@@ -157,8 +157,7 @@ public class Block {
 		// need some way to keep track of which orders belong to
 		// a block!!!
 		if (this.symbol.equals(order.getSymbol()) &&
-				this.side_id == order.getSide_id() &&
-				this.block_type_id == order.getOrder_type_id()) {
+				this.side_id == order.getSide_id()) {
 			this.blockOrders.add(order);
 			this.updateBlockOrderHashMap(order);
 		}
