@@ -1,12 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+ <%@ include file="includes/head.jsp"%> 
 </head>
 <body>
+	 <%!String pageTitle = "Orders";%>
+	<%!String toolbarButtonTitle = "Add to Block";%>
+	<%!String modalTitle = toolbarButtonTitle;%>
 
+	<%@include file="../includes/traderNavbar.jsp"%>
+	<div class="container">
+		<%@include file="../includes/pageHeader.jsp"%>
+
+
+
+
+		<jsp:include page="Trader/toolbar2.jsp">
+			<jsp:param name="toolbarButtonTitle" value="<%=toolbarButtonTitle%>" />
+		</jsp:include>
+
+		<br>
+		<%@include file="Trader/OrderStatusTabs.jsp"%>
+	</div> 
 </body>
 </html>
