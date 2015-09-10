@@ -251,8 +251,6 @@ public class QueryManager {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				underlyingOrders.add(new Order(rs.getInt("id"),
-											   rs.getInt("side_id"),
-											   rs.getInt("order_type_id"),
 											   rs.getString("symbol"),
 											   rs.getInt("quantity"),
 											   rs.getString("side"),
