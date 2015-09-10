@@ -22,25 +22,9 @@ public class Block {
 		// empty constructor
 	}
 
-	public Block(int block_id, int block_type_id, 
-			int side_id, String symbol, int status, 
-			int open_quantity, int total_quantity, int exec_quantity, 
-				double limit_price , double stop_price, 
-				ArrayList<Order> blockOrders, 
-				HashMap<Integer, ArrayList<Order>> blockOrderMap) {
+	public Block(int block_id) {
 		super();
 		this.block_id = block_id;
-		this.block_type_id = block_type_id;
-		this.side_id = side_id;
-		this.symbol = symbol;
-		this.status = status;
-		this.open_quantity = open_quantity;
-		this.exec_quantity = exec_quantity;
-		this.total_quantity = total_quantity;
-		this.limit_price = limit_price;
-		this.stop_price = stop_price;
-		this.blockOrders = blockOrders;
-		this.blockOrderMap = blockOrderMap;
 	}
 
 	public Block(int block_id, int block_type_id, int side_id, String symbol, 

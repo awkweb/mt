@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.mt.bean.Block;
 import com.mt.bean.Order;
 import com.mt.bean.Portfolio;
 import com.mt.bean.PortfolioManager;
@@ -79,16 +80,17 @@ public class LoginServlet extends DBConnectorServlet {
 						portfolios.add(qm.getPortfolio(pId));
 					}				
 					PortfolioManager pm = new PortfolioManager(userId, username, fname, lname, role, portfolioIds, portfolios);
-					request.setAttribute("pm", pm);
 					HttpSession session=request.getSession();  
 			        session.setAttribute("pm",pm);
 			        userPm = true;
 				}else{
-					ArrayList<Order> orders = qm.getTraderOrdersForId(userId);
 					TraderManager trader = new TraderManager(userId, username, fname, lname, role);
-					System.out.println(trader);
+					ArrayList<Integer> blockIds = qm.getBlockIDs(userId);
+					trader.setBlockIds(blockIds);
+					ArrayList<Block> blocks = qm.getBlocks(userId);
+					trader.setBlocks(blocks);
+					ArrayList<Order> orders = qm.getTraderOrdersForId(userId);
 					trader.setOrders(orders);
-					System.out.println(trader);
 					HttpSession session=request.getSession();  
 			        session.setAttribute("trader",trader);
 				}

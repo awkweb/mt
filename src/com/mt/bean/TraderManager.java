@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class TraderManager extends User {
 	
 	private ArrayList<Integer> blockIds;
-	private ArrayList<Block> blockList;
+	private ArrayList<Block> blocks;
 	private ArrayList<Order> orders; 
 
 	public TraderManager(int id, String username, String fname, String lname,
@@ -21,12 +21,12 @@ public class TraderManager extends User {
 		this.blockIds = blockIds;
 	}
 
-	public ArrayList<Block> getBlockList() {
-		return blockList;
+	public ArrayList<Block> getBlocks() {
+		return blocks;
 	}
 
-	public void setBlockList(ArrayList<Block> blockList) {
-		this.blockList = blockList;
+	public void setBlocks(ArrayList<Block> blocks) {
+		this.blocks = blocks;
 	}
 
 	public ArrayList<Order> getOrders() {

@@ -215,7 +215,7 @@ public class QueryManager {
 		return blockIds;
 	}
 	
-	public ArrayList<Block> getBlock(int traderID) {
+	public ArrayList<Block> getBlocks(int traderID) {
 		String sql = "SELECT * FROM block WHERE trader_id = ?";
 		ArrayList<Block> blockList = new ArrayList<Block>();
 		try {
@@ -223,17 +223,7 @@ public class QueryManager {
 			ps.setInt(1, traderID);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				// fills the block with everything but the blockOrders list
-				// and blockOrderMap
-				blockList.add(new Block(rs.getInt("block_id"),
-										rs.getInt("block_type_id"),
-										rs.getInt("side_id"),
-										rs.getString("symbol"),
-										rs.getInt("status"),
-										rs.getInt("open_quantity"),
-										rs.getInt("total_quantity"),
-										rs.getInt("exec_quantity")));
-										
+				blockList.add(new Block(rs.getInt("block_id")));					
 			}
 		} catch (SQLException e){
 			e.printStackTrace();
@@ -290,7 +280,6 @@ public class QueryManager {
 				Order order = new Order(id, symbol, quantity, side, type, price, traderId, notes);
 				order.setStatus(status);
 				
-				/*order.setPmName(portfolio_manager);*/
 				orders.add(order);			
 			}
 		} catch (SQLException e) {
@@ -299,46 +288,4 @@ public class QueryManager {
 		return orders;		
 	}
 	
-	/*public ArrayList<Order> getTraderOrders(String traderName){		
-		String sql = 
-				 "SELECT u1.username,orders.trader `Trader ID`,u1.fname `Trader First Name`,u2.lname `Trader Last name`,orders.port_id `Portfolio Manager ID`,"
-				 + "u2.fname,u2.lname,orders.symbol,orders.block_order_id,orders.quantity,orders.side,orders.type,"
-				 + "orders.price,orders.notes,orders.status "
-				 + "from orders INNER JOIN users AS u1 ON u1.userid = orders.trader "
-				 + "INNER JOIN users AS u2 ON u2.userid=orders.port_id"
-				 + "WHERE u1.username = ?";
-		ArrayList<Order> orders = new ArrayList<Order>();
-		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setString(1, traderName);
-	
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				if(rs.getString("trader").equals(traderName)){
-					int id = rs.getInt("id");
-										
-					String symbol=rs.getString("symbol");
-					int quantity = rs.getInt("quantity");
-					String side = rs.getString("side");
-					String type = rs.getString("type");
-					double price = rs.getDouble("price");
-					int traderId = rs.getInt("Trader ID");
-					String status = rs.getString("status");
-					String notes = rs.getString("notes");
-					String portfolio_manager_first_name =rs.getString("fname");
-					String portfolio_manager_last_name =rs.getString("lname");
-					String portfolio_manager = portfolio_manager_first_name.concat(" ");					
-					portfolio_manager = portfolio_manager_first_name.concat(portfolio_manager_last_name);								
-					Order order = new Order(id, symbol, quantity, side, type, price, traderId, notes);
-					order.setPmName(portfolio_manager);
-					order.setStatus(status);
-					System.out.println(order);
-					orders.add(order);
-				}				
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return orders;		
-	}*/
 }
