@@ -176,10 +176,28 @@ public class QueryManager {
 		return -1;
 	}
 	
-	// Cato and Jai
-	public void createBlock() {
-		// 
+	/*// Cato - need help
+	public void createBlock(int block_id) {
+		String sql = "INSERT INTO `mtdb`.`block` (`block_id`, `symbol`, `status`, `open_quantity`, `total_quantity`, `exec_quantity`, `limit_price`, `stop_price`, `trader_id`,`side_order_id`, `order_type_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, getNewOrderId());
+			ps.setInt(2, portfolioId);
+			ps.setString(3, order.getSymbol());
+			ps.setInt(4, order.getQuantity());
+			ps.setString(5, order.getSide());
+			ps.setString(6, order.getType());
+			ps.setDouble(7, order.getPrice());
+			ps.setString(8, order.getTrader());
+			ps.setString(9, order.getNotes());
+			ps.setString(10, "open");
+			ps.execute();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
+}*/
 	
 	public ArrayList<Integer> getBlockIDs(int traderID) {
 		System.out.println("traderID: " + traderID);
@@ -198,10 +216,30 @@ public class QueryManager {
 		return blockIds;
 	}
 	
-	public Block getBlock(int traderID) {
+	public ArrayList<Block> getBlock(int traderID) {
 		String sql = "SELECT * FROM block WHERE trader_id = ?";
-		
-		return null;
+		ArrayList<Block> blockList = new ArrayList<Block>();
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, traderID);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				// fills the block with everything but the blockOrders list
+				// and blockOrderMap
+				blockList.add(new Block(rs.getInt("block_id"),
+										rs.getInt("block_type_id"),
+										rs.getInt("side_id"),
+										rs.getString("symbol"),
+										rs.getInt("status"),
+										rs.getInt("open_quantity"),
+										rs.getInt("total_quantity"),
+										rs.getInt("exec_quantity")));
+										
+			}
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return blockList;
 	}
 	
 	public ArrayList<Order> getOrdersUnderlyingBlock(int block_id) {
@@ -210,6 +248,20 @@ public class QueryManager {
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, block_id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				underlyingOrders.add(new Order(rs.getInt("id"),
+											   rs.getInt("side_id"),
+											   rs.getInt("order_type_id"),
+											   rs.getString("symbol"),
+											   rs.getInt("quantity"),
+											   rs.getString("side"),
+											   rs.getString("type"),
+											   rs.getDouble("price"),
+											   rs.getString("trader"),
+											   rs.getString("notes"),
+											   rs.getInt("block_order_id")));
+			}
 		} catch (SQLException e){
 			e.printStackTrace();
 		}

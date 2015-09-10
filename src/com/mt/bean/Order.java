@@ -10,11 +10,13 @@ public class Order {
 	private String side;
 	private String type;
 	private double price;
-	private String trader;
+	private int trader;
 	private String notes;
 	private int block_order_id;
 	
-	public Order(int id, int side_id, int order_type_id, String symbol, int quantity, String side, String type, double price, String trader,
+	public Order(int id, int side_id, int order_type_id, String symbol, 
+			int quantity, String side, String type, 
+			double price, int trader,
 			String notes, int block_order_id) {
 		super();
 		this.id = id;
@@ -86,11 +88,11 @@ public class Order {
 		this.price = price;
 	}
 
-	public String getTrader() {
+	public int getTrader() {
 		return trader;
 	}
 
-	public void setTrader(String trader) {
+	public void setTrader(int trader) {
 		this.trader = trader;
 	}
 

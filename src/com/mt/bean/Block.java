@@ -9,7 +9,7 @@ public class Block {
 	private int block_type_id;
 	private int side_id;
 	private String symbol;
-	private String status;
+	private int status;
 	private int open_quantity;
 	private int total_quantity;
 	private int exec_quantity;
@@ -23,7 +23,7 @@ public class Block {
 	}
 
 	public Block(int block_id, int block_type_id, 
-			int side_id, String symbol, String status, 
+			int side_id, String symbol, int status, 
 			int open_quantity, int total_quantity, int exec_quantity, 
 				double limit_price , double stop_price, 
 				ArrayList<Order> blockOrders, 
@@ -41,6 +41,18 @@ public class Block {
 		this.stop_price = stop_price;
 		this.blockOrders = blockOrders;
 		this.blockOrderMap = blockOrderMap;
+	}
+
+	public Block(int block_id, int block_type_id, int side_id, String symbol, 
+			int status, int open_quantity, int total_quantity, int exec_quantity) {
+		this.block_id = block_id;
+		this.block_type_id = block_type_id;
+		this.side_id = side_id;
+		this.symbol = symbol;
+		this.status = status;
+		this.open_quantity = open_quantity; 
+		this.total_quantity = total_quantity;
+		this.exec_quantity = exec_quantity;
 	}
 
 	public HashMap<Integer, ArrayList<Order>> getBlockOrderMap() {
@@ -156,9 +168,20 @@ public class Block {
 
 	}
 	
-	// Cato
+	// Cato - need help
 	public void updateBlockOrderHashMap(Order order) {
 		order.setBlock_order_id(this.block_id);
+	}
+	
+	public double getTotalPrice() {
+		double avgPrice = 0;
+		for (Order i : this.blockOrders) {
+			avgPrice += i.getPrice();
+		}
+		if (!this.blockOrders.isEmpty()) 
+			return avgPrice/=this.blockOrders.size();
+		else
+			return 0;
 	}
 
 	
