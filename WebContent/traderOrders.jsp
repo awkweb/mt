@@ -4,7 +4,6 @@
  <%@ include file="includes/head.jsp"%> 
 </head>
 <body>
-in trader page
 	 <%!String pageTitle = "Orders";%>
 	<%!String toolbarButtonTitle = "Add to Block";%>
 	<%!String modalTitle = toolbarButtonTitle;%>

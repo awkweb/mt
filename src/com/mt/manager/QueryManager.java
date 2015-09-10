@@ -40,7 +40,51 @@ public class QueryManager {
 					double price = rs.getDouble("price");
 					String trader = rs.getString("trader");
 					String notes = rs.getString("notes");					
-					Order order = new Order(id, symbol, quantity, side, type, price, trader, notes);
+					String portfolio_manager=rs.getString("portfolio_manager");
+					Order order = new Order(id, symbol, quantity, side, type, price, trader, notes,portfolio_manager,status);
+					System.out.println(order);
+					orders.add(order);
+				}				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return orders;		
+	}
+	
+	public ArrayList<Order> getTraderOrders(String traderName){		
+		String sql = 
+				 "SELECT u1.username,orders.trader `Trader ID`,u1.fname `Trader First Name`,u2.lname `Trader Last name`,orders.port_id `Portfolio Manager ID`,"
+				 + "u2.fname,u2.lname,orders.symbol,orders.block_order_id,orders.quantity,orders.side,orders.type,"
+				 + "orders.price,orders.notes,orders.status "
+				 + "from orders INNER JOIN users AS u1 ON u1.userid = orders.trader "
+				 + "INNER JOIN users AS u2 ON u2.userid=orders.port_id"
+				 + "WHERE u1.username = ?";
+		ArrayList<Order> orders = new ArrayList<Order>();
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, traderName);
+	
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				if(rs.getString("trader").equals(traderName)){
+					int id = rs.getInt("id");
+					
+					
+					String symbol=rs.getString("symbol");
+					int quantity = rs.getInt("quantity");
+					String side = rs.getString("side");
+					String type = rs.getString("type");
+					double price = rs.getDouble("price");
+					String status = rs.getString("status");
+					String notes = rs.getString("notes");
+					
+					String portfolio_manager_first_name =rs.getString("fname");
+					String portfolio_manager_last_name =rs.getString("lname");
+					String portfolio_manager = portfolio_manager_first_name.concat(" ");					
+					portfolio_manager = portfolio_manager_first_name.concat(portfolio_manager_last_name);
+					Order order = new Order(id, symbol, quantity, side, type, price, traderName, notes,portfolio_manager,status);
+					System.out.println(order);
 					orders.add(order);
 				}				
 			}

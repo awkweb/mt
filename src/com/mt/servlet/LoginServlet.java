@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.mt.bean.DBConnector;
+import com.mt.bean.Order;
 import com.mt.bean.Portfolio;
 import com.mt.bean.PortfolioManager;
 import com.mt.manager.QueryManager;
@@ -82,6 +83,8 @@ public class LoginServlet extends DBConnectorServlet {
 					HttpSession session=request.getSession();  
 			        session.setAttribute("pm",pm);
 			        userPm = true;
+				}else{
+					ArrayList<Order> orders = qm.getTraderOrders(username);
 				}
 		        authenitcatedUser = true;
 			}
@@ -104,7 +107,7 @@ public class LoginServlet extends DBConnectorServlet {
 				rd.forward(request, response);
 			}else{
 				RequestDispatcher rd = request.getRequestDispatcher("traderOrders.jsp");
-				rd.forward(request, response);	
+				rd.forward(request, response);
 			}
 		} else {
 			request.setAttribute("error", true);

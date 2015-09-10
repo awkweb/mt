@@ -10,9 +10,11 @@ public class Order {
 	private double price;
 	private String trader;
 	private String notes;
+	private String portfolio_manager;
+	private String status;
 	
 	public Order(int id, String symbol, int quantity, String side, String type, double price, String trader,
-			String notes) {
+			String notes,String portfolio_manager,String status) {
 		super();
 		this.id = id;
 		this.symbol = symbol;
@@ -22,10 +24,21 @@ public class Order {
 		this.price = price;
 		this.trader = trader;
 		this.notes = notes;
+		this.portfolio_manager=portfolio_manager;
+		this.status = status;
 	}
 
 	public int getId() {
 		return id;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", symbol=" + symbol + ", quantity="
+				+ quantity + ", side=" + side + ", type=" + type + ", price="
+				+ price + ", trader=" + trader + ", notes=" + notes
+				+ ", portfolio_manager=" + portfolio_manager + ", status="
+				+ status + "]";
 	}
 
 	public void setId(int id) {
@@ -87,5 +100,21 @@ public class Order {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
+	public String getPortfolio_manager(){
+		
+		return portfolio_manager;
+	}
+	
+public void setPortfolio_manager(String portfolio_manager){
+	
+	this.portfolio_manager=portfolio_manager;
+}
 
+public String getStatus() {
+	return status;
+}
+
+public void setStatus(String status) {
+	this.status = status;
+}
 }
