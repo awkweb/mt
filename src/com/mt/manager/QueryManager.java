@@ -276,16 +276,42 @@ public class QueryManager {
 				int traderId = rs.getInt("trader");
 				String status = rs.getString("status");
 				String notes = rs.getString("notes");
-
+				String timeStamp = rs.getString("timeStamp");
+				String pmName = getPmNameForPortId(rs.getInt("port_Id"));
 				Order order = new Order(id, symbol, quantity, side, type, price, traderId, notes);
 				order.setStatus(status);
-				
+				order.setPmName(pmName);
+				order.setTimeStamp(timeStamp);
 				orders.add(order);			
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return orders;		
+	}
+
+	private String getPmNameForPortId(int id) {
+		String sql = 
+				 "SELECT id,fname, lname, userid, pm_id"
+				 + " FROM mtdb.portfolio p, mtdb.users "
+				 + "WHERE p.pm_id = ?";
+		String returnString = "Sarah O'Reilly";
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, id);
+	
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {										
+			String firstname =rs.getString("fname");
+			returnString = firstname;
+			String lastname =rs.getString("lname");
+			firstname = firstname.concat(" ");
+			returnString = firstname.concat(lastname);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return returnString;
 	}
 	
 }
