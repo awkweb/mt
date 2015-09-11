@@ -25,9 +25,9 @@
 			<jsp:param name="toolbarButtonTitle" value="<%=toolbarButtonTitle%>" />
 		</jsp:include>
 		
-		<%= trader.getBlocks() %>
+<%-- 		<%= trader.getBlocks() %>
 		<%= trader.getBlockIds() %>
-		<%= trader.getOrders() %>
+		<%= trader.getOrders() %> --%>
 
 		<br>
 		<%@include file="Trader/OrderStatusTabs.jsp"%>
