@@ -14,7 +14,7 @@
 		<label for="inputQuantity" class="col-sm-2 control-label">Quantity</label>
 		<div class="col-sm-10">
 			<input type="text" class="form-control" id="inputQuantity"
-				placeholder="Quantity" name="quantity">
+				placeholder="Quantity" name="quantity" pattern="[0-9]*">
 		</div>
 	</div>
 	<div class="form-group">
@@ -48,7 +48,7 @@
 		<div class="col-sm-10">
 			<div class="input-group">
 				<span class="input-group-addon">$</span> <input type="text"
-					class="form-control" id="inputPrice" placeholder="00.00" name="price">
+					class="form-control" id="inputPrice" placeholder="00.00" name="price" pattern="^\d+(\.|\,)\d{2}$">
 			</div>
 		</div>
 	</div>

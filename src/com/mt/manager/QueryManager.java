@@ -1,11 +1,23 @@
 package com.mt.manager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 
 import com.mt.bean.Block;
 import com.mt.bean.Order;
@@ -167,8 +179,13 @@ public class QueryManager {
 	}
 	
 	public void createOrder(int portfolioId, Order order){
-		String sql = "INSERT INTO `mtdb`.`orders` (`id`, `port_id`, `symbol`, `quantity`, `side`, `type`, `price`, `trader`, `notes`,`status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+		String sql = "INSERT INTO `mtdb`.`orders` (`id`, `port_id`, `symbol`, `quantity`, `side`, `type`, `price`, `trader`, `notes`,`status`,`timestamp`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
 		try {
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss dd/MM/yyyy");
+			String formattedDate = sdf.format(date);			
+			
+			
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, getNewOrderId());
 			ps.setInt(2, portfolioId);
@@ -180,6 +197,7 @@ public class QueryManager {
 			ps.setInt(8, order.getTrader());
 			ps.setString(9, order.getNotes());
 			ps.setString(10, "open");
+			ps.setString(11, formattedDate);
 			ps.execute();
 				
 		} catch (SQLException e) {
@@ -418,6 +436,58 @@ public class QueryManager {
 			e.printStackTrace();
 		}
 		return -1;
+	}
+	
+	public void exportToExcel(int traderId, ArrayList<Order> traderOrders) {
+		HSSFWorkbook workbook = new HSSFWorkbook();
+		HSSFSheet sheet = workbook.createSheet("Trader Info");
+		
+		System.out.println("I am running!"+ traderOrders);
+		int rows = 0;
+		
+		for (Order order : traderOrders) {
+			Row row = sheet.createRow(rows++);
+			Object[] cellArray = returnArrayWithCellData(order);
+			int cellnum = 0;
+			for (Object obj : cellArray) {
+				Cell cell = row.createCell(cellnum++);
+				setCellForAppropriateClassInstance(cell, obj);
+			}
+			
+		}
+		
+		try {
+			FileOutputStream out = 
+					new FileOutputStream(new File("D:\\traderOrders.xls"));
+			workbook.write(out);
+			out.close();
+			System.out.println("Excel written successfully..");
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	private Object[] returnArrayWithCellData(Order order) {
+		return new Object [] { order.getId(), order.getSymbol(), order.getSide(),  order.getType(), order.getPrice(), order.getTrader(), order.getStatus(), order.getNotes()};
+	}
+
+	
+
+	private void setCellForAppropriateClassInstance(Cell cell, Object obj) {
+		if(obj instanceof Date) 
+			cell.setCellValue((Date)obj);
+		else if(obj instanceof Boolean)
+			cell.setCellValue((Boolean)obj);
+		else if(obj instanceof String)
+			cell.setCellValue((String)obj);
+		else if(obj instanceof Double)
+			cell.setCellValue((Double)obj);
+		else if(obj instanceof Integer)
+			cell.setCellValue((Integer)obj);
 	}
 	
 }

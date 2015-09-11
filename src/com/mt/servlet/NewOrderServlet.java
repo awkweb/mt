@@ -65,7 +65,7 @@ public class NewOrderServlet extends DBConnectorServlet {
 			if(connection.isClosed()){
 				connection = getConnection();
 			}
-			Order order = new Order(id, symbol, quantity, side, type, price, traderId, notes);
+			Order order = new Order(id, symbol, quantity, side, type, price, 2, notes);
 			qm.createOrder(portfolioId, order);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("positionDisplayServlet");

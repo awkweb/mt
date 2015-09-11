@@ -4,7 +4,7 @@
 			<div class="input-group">
 				<input type="text" class="form-control" placeholder="Search" name="searchString">
 				<span class="input-group-btn">
-					<button type="submit" class="btn btn-default" type="button">Search</button>
+					<button type="submit" class="btn btn-default" type="button" disabled="disabled">Search</button>
 					<% if (request.getParameter("activeSearch") != null) { %>
 					<button class="btn btn-default" type="button" onclick="window.location.reload();">Reset</button>
 					<% } %>
