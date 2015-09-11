@@ -1,3 +1,4 @@
+
 <form class="form-horizontal">
 
 
@@ -22,10 +23,13 @@
 	
 	
 	<div class="form-group">
-	<div class="col-sum-4"><label style="text-align:left" class="col-sm-3 control-label" for="inputNewBlock"> <input type="radio"
-				name="inlineRadioOptionsType" id="inlineRadioMarket" value="option1">   Existing Block
-				
-			</label> </div>
+	<div class="col-sum-4">
+	
+	
+	<label style="text-align:left" class="col-sm-3 control-label" for="inputNewBlock">
+	<input type="radio"
+				name="inlineRadioOptionsType" id="inlineRadioMarket" value="option1">   Existing Block</label> 
+			</div>
 
 		<div class="col-sm-6">
 			<select class="form-control">
@@ -37,7 +41,7 @@
 			</select>
 		</div>
 	</div>
-		
+	
 	
 	
 	

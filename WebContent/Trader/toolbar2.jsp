@@ -12,7 +12,7 @@
 			aria-label="...">
 			<div class="btn-group" role="group">
 				<button id="Add to Block" type="button" class="btn btn-default" data-toggle="modal"
-					data-target="#myModal2"><%=request.getParameter("toolbarButtonTitle")%></button>
+					data-target="#myModal2"><%=toolbarButtonTitle%></button>
 			</div>
 		</div>
 	</div>
