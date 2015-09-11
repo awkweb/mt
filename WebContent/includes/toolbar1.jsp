@@ -11,11 +11,9 @@
 		<div class="btn-group btn-group-justified" role="group"
 			aria-label="...">
 			<div class="btn-group" role="group">
-				<button id="Add to Block" type="button" class="btn btn-default" data-toggle="modal"
-					data-target="#myModal2"><%=toolbarButtonTitle%></button>
+				<button id="Remove from Block" type="button" class="btn btn-default" data-toggle="modal"
+					data-target="#myModal"><%=request.getParameter("toolbarButtonTitle")%></button>
 			</div>
 		</div>
 	</div>
 </div>
-
-    	<%@include file="AddToBlockModal.jsp" %>

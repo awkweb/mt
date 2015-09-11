@@ -93,6 +93,7 @@ public class LoginServlet extends DBConnectorServlet {
 					trader.setOrders(orders);
 					HttpSession session=request.getSession();  
 			        session.setAttribute("trader",trader);
+			       
 				}
 		        authenitcatedUser = true;
 			}

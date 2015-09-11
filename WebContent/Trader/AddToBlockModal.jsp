@@ -3,14 +3,22 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title" id="modalTitle"><strong>Add to Block</strong></h3>
-        <p>Selected Orders(3)</p>
+       
+        <% if (pageTitle.equals("Orders")) { %>
+       	<h3 class="modal-title" id="modalTitle"><strong>Add to Block</strong></h3>
+        <% } else { %>
+        <h3 class="modal-title" id="modalTitle"><strong>Remove from Block</strong></h3>
+        <% } %>
         
         
-        
-        
-        
-        <!-- <th>Type</th> --><table class="table table-bordered table-hover">
+         </div>
+    
+    
+    	
+      <div class="modal-body">
+              <h3>Selected Orders(3)</h3>
+      
+      	 <!-- <th>Type</th> --><table class="table table-bordered table-hover">
 	<tr>
 		<th style="text-align:center">Order ID</th>
 		<th style="text-align:center">Portfolio Manager</th>
@@ -48,21 +56,11 @@
 	</tr>
 	
 </table>
-
-        
-        
-        
-        
-        
-        
-         </div>
-    
-    
-    
-      <div class="modal-body">
-
+		<% if (pageTitle.equals("Orders")) { %>
         <%@include file="AddToBlockForm.jsp" %>
+              <%} %>
       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Submit</button>

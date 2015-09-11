@@ -13,6 +13,7 @@ public class Order {
 	private int block_order_id;
 	private String pmName;
 	private String status;
+	private String timeStamp;
 	
 	public Order(int id, String symbol, 
 			int quantity, String side, String type, 
@@ -28,6 +29,8 @@ public class Order {
 		this.price = price;
 		this.trader = trader;
 		this.notes = notes;
+		setTimeStamp("12/12/12");
+		setPmName("Sarah O'Reilly");
 	}
 
 	public int getBlock_order_id() {
@@ -120,6 +123,14 @@ public class Order {
 	
 	public double getPercentage(int totalPortfolioQuantity){
 		return ((double)this.quantity / (double)totalPortfolioQuantity) * 100.00;
+	}
+
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 
 

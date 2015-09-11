@@ -85,6 +85,7 @@ public class QueryManager {
 	
 	public HashMap<String, ArrayList<Order>> getOrderMap(int portfolioId, String symbol){
 		HashMap<String, ArrayList<Order>> map = new HashMap<String, ArrayList<Order>>();
+		String[] statuses = {"open", "sent for execution", "successful", "failed", "partially filled", "cancelled"};
 		String[] statuses = {"open", "sent for execution", "successful", "expired", "partially filled", "cancelled"};
 		for(int i=0; i<statuses.length;i++){
 			map.put(statuses[i], getPositionOrders(portfolioId, symbol, statuses[i]));
@@ -246,6 +247,7 @@ public class QueryManager {
 	}
 	
 	public ArrayList<Block> getBlocks(int traderID) {
+		
 		String sql = "SELECT * FROM block WHERE trader_id = ?";
 		ArrayList<Block> blockList = new ArrayList<Block>();
 		try {
@@ -253,7 +255,25 @@ public class QueryManager {
 			ps.setInt(1, traderID);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				blockList.add(new Block(rs.getInt("block_id")));					
+				int block_id = rs.getInt("block_id");
+				int side_id = rs.getInt("side_order_id");
+				String symbol = rs.getString("symbol");
+				String status= rs.getString("status");
+				int open_quantity = rs.getInt("open_quantity");
+				int total_quantity = rs.getInt("total_quantity");
+				int exec_quantity = rs.getInt("exec_quantity");
+				double limit_price = rs.getDouble("limit_price");
+				double stop_price = rs.getDouble("stop_price");
+				Block block = new Block(block_id );
+				block.setExec_quantity(exec_quantity);
+				block.setLimit_price(limit_price);
+				block.setStop_price(stop_price);
+				block.setOpen_quantity(open_quantity);
+				block.setTotal_quantity(total_quantity);
+				block.setSymbol(symbol);
+				block.setStatus(status);
+				block.setSide_id(side_id);
+				blockList.add(block);					
 			}
 		} catch (SQLException e){
 			e.printStackTrace();
@@ -307,16 +327,42 @@ public class QueryManager {
 				int traderId = rs.getInt("trader");
 				String status = rs.getString("status");
 				String notes = rs.getString("notes");
-
+				String timeStamp = rs.getString("timeStamp");
+				String pmName = getPmNameForPortId(rs.getInt("port_Id"));
 				Order order = new Order(id, symbol, quantity, side, type, price, traderId, notes);
 				order.setStatus(status);
-				
+				order.setPmName(pmName);
+				order.setTimeStamp(timeStamp);
 				orders.add(order);			
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return orders;		
+	}
+
+	private String getPmNameForPortId(int id) {
+		String sql = 
+				 "SELECT id,fname, lname, userid, pm_id"
+				 + " FROM mtdb.portfolio p, mtdb.users "
+				 + "WHERE p.pm_id = ?";
+		String returnString = "Sarah O'Reilly";
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, id);
+	
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {										
+			String firstname =rs.getString("fname");
+			returnString = firstname;
+			String lastname =rs.getString("lname");
+			firstname = firstname.concat(" ");
+			returnString = firstname.concat(lastname);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return returnString;
 	}
 	
 	public int getIdFromName(String fname, String lname){

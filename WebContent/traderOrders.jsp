@@ -9,25 +9,30 @@
 <%!String modalTitle = toolbarButtonTitle;%>
 
 <%! TraderManager trader; %> 
-<% trader = ((TraderManager)session.getAttribute("trader")); %>  
+<% trader = ((TraderManager)session.getAttribute("trader")); %>
 
+<%! ArrayList<String> symbols; %>
+<% symbols = new ArrayList<String>(); %>
+
+<%! ArrayList<Order> orders; %>
+<% orders = trader.getOrders(); %>
+<%! TreeMap<String,Order> Tree; %>
+<% Tree = new TreeMap<String,Order>(); %>
+
+<%! int k = 0;%>
+ 	 
 <!DOCTYPE html>
 <html>
 <head>
- <%@ include file="includes/head.jsp"%> 
+ 	<%@ include file="includes/head.jsp"%> 
 </head>
 <body>
-	<%@include file="../includes/traderNavbar.jsp"%>
-	<div class="container">
+		<%@include file="../includes/traderNavbar.jsp"%>
+		<div class="container">
 		<%@include file="../includes/pageHeader.jsp"%>
 		
-		<jsp:include page="Trader/toolbar2.jsp">
-			<jsp:param name="toolbarButtonTitle" value="<%=toolbarButtonTitle%>" />
-		</jsp:include>
+		<%@include file="Trader/toolbar2.jsp"%>
 		
-<%-- 		<%= trader.getBlocks() %>
-		<%= trader.getBlockIds() %>
-		<%= trader.getOrders() %> --%>
 
 		<br>
 		<%@include file="Trader/OrderStatusTabs.jsp"%>
