@@ -216,6 +216,7 @@ public class QueryManager {
 	}
 	
 	public ArrayList<Block> getBlocks(int traderID) {
+		
 		String sql = "SELECT * FROM block WHERE trader_id = ?";
 		ArrayList<Block> blockList = new ArrayList<Block>();
 		try {
@@ -223,7 +224,25 @@ public class QueryManager {
 			ps.setInt(1, traderID);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				blockList.add(new Block(rs.getInt("block_id")));					
+				int block_id = rs.getInt("block_id");
+				int side_id = rs.getInt("side_order_id");
+				String symbol = rs.getString("symbol");
+				String status= rs.getString("status");
+				int open_quantity = rs.getInt("open_quantity");
+				int total_quantity = rs.getInt("total_quantity");
+				int exec_quantity = rs.getInt("exec_quantity");
+				double limit_price = rs.getDouble("limit_price");
+				double stop_price = rs.getDouble("stop_price");
+				Block block = new Block(block_id );
+				block.setExec_quantity(exec_quantity);
+				block.setLimit_price(limit_price);
+				block.setStop_price(stop_price);
+				block.setOpen_quantity(open_quantity);
+				block.setTotal_quantity(total_quantity);
+				block.setSymbol(symbol);
+				block.setStatus(status);
+				block.setSide_id(side_id);
+				blockList.add(block);					
 			}
 		} catch (SQLException e){
 			e.printStackTrace();

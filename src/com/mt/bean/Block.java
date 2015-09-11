@@ -9,7 +9,7 @@ public class Block {
 	private int block_type_id;
 	private int side_id;
 	private String symbol;
-	private int status;
+	private String status;
 	private int open_quantity;
 	private int total_quantity;
 	private int exec_quantity;
@@ -28,12 +28,12 @@ public class Block {
 	}
 
 	public Block(int block_id, int block_type_id, int side_id, String symbol, 
-			int status, int open_quantity, int total_quantity, int exec_quantity) {
+			String status, int open_quantity, int total_quantity, int exec_quantity) {
 		this.block_id = block_id;
 		this.block_type_id = block_type_id;
 		this.side_id = side_id;
 		this.symbol = symbol;
-		this.status = status;
+		this.setStatus(status);
 		this.open_quantity = open_quantity; 
 		this.total_quantity = total_quantity;
 		this.exec_quantity = exec_quantity;
@@ -157,6 +157,14 @@ public class Block {
 			return avgPrice/=this.blockOrders.size();
 		else
 			return 0;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	

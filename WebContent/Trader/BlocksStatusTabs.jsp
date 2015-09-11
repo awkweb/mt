@@ -16,7 +16,7 @@
     	
     	<%@include file="BlocksCollapse.jsp" %>
     </div>
-    <div role="tabpanel" class="tab-pane  fade" id="sentForExecution1">
+<%--     <div role="tabpanel" class="tab-pane  fade" id="sentForExecution1">
     	<%@include file="BlocksCollapse.jsp" %>
     </div>
     <div role="tabpanel" class="tab-pane  fade" id="successful1">
@@ -33,7 +33,7 @@
     </div>
     <div role="tabpanel" class="tab-pane  fade" id="all1">
  <%@include file="BlocksCollapse.jsp" %>
-    </div>
+    </div> --%>
   </div>
 
 </div>

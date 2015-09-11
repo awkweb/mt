@@ -43,7 +43,7 @@
 
         <!-- Here we insert another nested accordion -->
         
-        <% System.out.println(symbols.get(j));
+        <% 
         boolean thereIsABuy = false; 
         for (Order order: orders){ 
         	if ((symbols.get(j).equals(order.getSymbol())) && (order.getSide().equals("buy"))){
