@@ -27,7 +27,11 @@
 				<button type="submit" class="btn btn-default">Submit</button>
 			</form>		
 			<% if (error) { %>
-			      <div class="alert alert-danger" role="alert">Oh snap! Invalid credentials. Try submitting again.</div>
+			      <div class="alert alert-danger" role="alert">Oh snap! Invalid credentials. Try submitting again.
+			      	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+					</button>
+			      </div>
 			<% } %>
 		</div>
 		<div class="col-sm-4"></div>

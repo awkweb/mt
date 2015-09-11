@@ -56,7 +56,7 @@ public class QueryManager {
 	
 	public HashMap<String, ArrayList<Order>> getOrderMap(int portfolioId, String symbol){
 		HashMap<String, ArrayList<Order>> map = new HashMap<String, ArrayList<Order>>();
-		String[] statuses = {"open", "sent for execution", "successful", "failed", "partially filled", "cancelled"};
+		String[] statuses = {"open", "sent for execution", "successful", "expired", "partially filled", "cancelled"};
 		for(int i=0; i<statuses.length;i++){
 			map.put(statuses[i], getPositionOrders(portfolioId, symbol, statuses[i]));
 		}

@@ -21,7 +21,7 @@ public class PositionDisplayServlet extends HttpServlet {
 		String destination = "/loginServlet";
         RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
         rd.forward(request, response);
-//		response.sendRedirect("pmPositions.jsp");
+		response.sendRedirect("pmPositions.jsp");
 	}
 
 }
