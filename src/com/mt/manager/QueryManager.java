@@ -56,7 +56,6 @@ public class QueryManager {
 	
 	public HashMap<String, ArrayList<Order>> getOrderMap(int portfolioId, String symbol){
 		HashMap<String, ArrayList<Order>> map = new HashMap<String, ArrayList<Order>>();
-		String[] statuses = {"open", "sent for execution", "successful", "failed", "partially filled", "cancelled"};
 		String[] statuses = {"open", "sent for execution", "successful", "expired", "partially filled", "cancelled"};
 		for(int i=0; i<statuses.length;i++){
 			map.put(statuses[i], getPositionOrders(portfolioId, symbol, statuses[i]));
@@ -243,37 +242,13 @@ public class QueryManager {
 				block.setSymbol(symbol);
 				block.setStatus(status);
 				block.setSide_id(side_id);
+				block.setBlockOrders(getBlockOrdersForId(block_id));
 				blockList.add(block);					
 			}
 		} catch (SQLException e){
 			e.printStackTrace();
 		}
 		return blockList;
-	}
-	
-	public ArrayList<Order> getOrdersUnderlyingBlock(int block_id) {
-		String sql = "SELECT * FROM orders WHERE block_order_id = ? ";
-		ArrayList<Order> underlyingOrders = new ArrayList<Order>();
-		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setInt(1, block_id);
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				Order o = new Order(rs.getInt("id"),
-						   rs.getString("symbol"),
-						   rs.getInt("quantity"),
-						   rs.getString("side"),
-						   rs.getString("type"),
-						   rs.getDouble("price"),
-						   rs.getInt("trader"),
-						   rs.getString("notes"));
-				o.setBlock_order_id(rs.getInt("block_order_id"));
-				underlyingOrders.add(o);
-			}
-		} catch (SQLException e){
-			e.printStackTrace();
-		}
-		return underlyingOrders;
 	}
 	
 	public ArrayList<Order> getTraderOrdersForId(int userId){		
@@ -309,6 +284,70 @@ public class QueryManager {
 		}
 		return orders;		
 	}
+	
+	
+	public ArrayList<Order> getOrdersUnderlyingBlock(int block_id) {
+		String sql = "SELECT * FROM orders WHERE block_order_id = ? ";
+		ArrayList<Order> underlyingOrders = new ArrayList<Order>();
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, block_id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Order o = new Order(rs.getInt("id"),
+						   rs.getString("symbol"),
+						   rs.getInt("quantity"),
+						   rs.getString("side"),
+						   rs.getString("type"),
+						   rs.getDouble("price"),
+						   rs.getInt("trader"),
+						   rs.getString("notes"));
+				o.setBlock_order_id(rs.getInt("block_order_id"));
+				underlyingOrders.add(o);
+			}
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return underlyingOrders;
+	}
+	
+	public ArrayList<Order> getBlockOrdersForId(int blockId){		
+		String sql = 
+				 "SELECT * FROM orders WHERE block_order_id=?";
+		ArrayList<Order> orders = new ArrayList<Order>();
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, blockId);
+	
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+					int id = rs.getInt("id");
+										
+				String symbol=rs.getString("symbol");
+				int quantity = rs.getInt("quantity");
+				String side = rs.getString("side");
+				String type = rs.getString("type");
+				double price = rs.getDouble("price");
+				int traderId = rs.getInt("trader");
+				String status = rs.getString("status");
+				String notes = rs.getString("notes");
+				String timeStamp = rs.getString("timeStamp");
+				String pmName = getPmNameForPortId(rs.getInt("port_Id"));
+				Order order = new Order(id, symbol, quantity, side, type, price, traderId, notes);
+				order.setStatus(status);
+				order.setPmName(pmName);
+				order.setTimeStamp(timeStamp);
+				orders.add(order);			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return orders;		
+	}
+	
+	
+	
+	
 
 	private String getPmNameForPortId(int id) {
 		String sql = 
