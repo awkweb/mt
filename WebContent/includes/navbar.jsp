@@ -14,7 +14,7 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
-				<% if  %>
+
 				<li
 					class="<%if (pageTitle.equals("Positions")) {%>active<%}%>"><a
 					href="/mt/pmPositions.jsp">Positions<span class="sr-only">(current)</span></a></li>

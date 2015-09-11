@@ -49,7 +49,7 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title"><a class="panel-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseInner<%=count%><%=j%>">
-                Block <%=block.getBlock_id()%> Quantity: <%=block.getTotal_quantity()%>, Side: <%=block.getSide_id()%> <button>Execute</button>
+                Block <%=block.getBlock_id()%> Quantity: <%=block.getTotal_quantity()%>, Side: <%=block.getSide_id()%>  <button class="btn btn-default">Execute</button>
               </a></h4>
             </div>
             <div id="collapseInner<%=count%><%=j%>" class="panel-body collapse">
