@@ -45,6 +45,7 @@ public class QueryManager {
 					int block_order_id = rs.getInt("block_order_id");
 					Order order = new Order(id, symbol, quantity, side, type, price, trader, notes);
 					order.setBlock_order_id(block_order_id);
+					order.setStatus(rs.getString("status"));
 					orders.add(order);
 				}				
 			}
@@ -248,6 +249,7 @@ public class QueryManager {
 						   rs.getInt("trader"),
 						   rs.getString("notes"));
 				o.setBlock_order_id(rs.getInt("block_order_id"));
+				o.setStatus(rs.getString("status"));
 				underlyingOrders.add(o);
 			}
 		} catch (SQLException e){
