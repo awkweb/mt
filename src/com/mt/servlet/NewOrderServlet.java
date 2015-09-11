@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -25,26 +26,17 @@ public class NewOrderServlet extends DBConnectorServlet {
 	private Connection connection;
 	private QueryManager qm;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public NewOrderServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see Servlet#init(ServletConfig)
-	 */
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		connection = getConnection();
 		qm = new QueryManager(connection);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String symbol = request.getParameter("symbol");		
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -62,8 +54,23 @@ public class NewOrderServlet extends DBConnectorServlet {
 			}
 			int id = qm.getNewOrderId();
 			int portfolioId = qm.getPortfolioId(pName, pmId);
-			Order order = new Order(id, symbol, quantity, side, type, price, trader, notes);
+			
+			
+			if(connection.isClosed()){
+				connection = getConnection();
+			}
+			String[] nameParts = trader.split(" ");
+			int traderId = qm.getIdFromName(nameParts[0], nameParts[1]);
+			
+			if(connection.isClosed()){
+				connection = getConnection();
+			}
+			Order order = new Order(id, symbol, quantity, side, type, price, traderId, notes);
 			qm.createOrder(portfolioId, order);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("positionDisplayServlet");
+			rd.forward(request, response);			
+			
 		}catch (SQLException e) {
 			e.printStackTrace();
 		} finally{

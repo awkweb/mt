@@ -4,21 +4,7 @@
 <div class="panel-group" id="accordion" role="tablist"
 	aria-multiselectable="true">
 	
-	<% if (firstCollapse <= 0) { %>
-	<div class="panel panel-default">
-		<div class="panel-heading" role="tab" id="heading<%=portfolio.getName()%>">
-			<h4 class="panel-title">
-				<a role="button" data-toggle="collapse" data-parent="#accordion"
-					href="#collapse<%=portfolio.getName()%>" aria-expanded="true"
-					aria-controls="collapseOne"><%= portfolio.getName() %></a>
-			</h4>
-		</div>
-		<div id="collapse<%=portfolio.getName()%>" class="panel-collapse collapse in"
-			role="tabpanel" aria-labelledby="heading<%=portfolio.getName()%>">
-			<%@include file="../pm/ordersTable.jsp"%>
-		</div>
-	</div>
-	<% } else { %>
+
 	<div class="panel panel-default">
 		<div class="panel-heading" role="tab" id="heading<%=portfolio.getName()%>">
 			<h4 class="panel-title">
@@ -32,6 +18,5 @@
 			<%@include file="../pm/ordersTable.jsp"%>
 		</div>
 	</div>
-	<% } %>
 	
 </div>

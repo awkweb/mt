@@ -17,18 +17,22 @@
 		<th>Notes</th>
 	</tr>
 	
-	<% for (Order o : orders) { %>
-	<tr>
-		<td><%= o.getId() %></td>
-		<td><%= o.getSymbol() %></td>
-		<td><%= o.getSide() %></td>
-		<td><%= o.getQuantity() %></td>
-		<td><%= o.getPrice() %></td>
-		<td><%= o.getTrader() %></td>
-		<!-- <td>Open</td> only display on all tab -->
-		<td><a data-container="body" data-toggle="popover"
-			data-placement="left" title="Notes"
-			data-content="<%= o.getNotes() %>"> Display </a></td>
-	</tr>
-	<% } %>
+    <% for(Order o : ordersByStatus){
+    	if(o != null && o.getStatus().equals("open")){
+    		%>
+    			<tr>
+					<td><%= o.getId() %></td>
+					<td><%= o.getSymbol() %></td>
+					<td><%= o.getSide() %></td>
+					<td><%= o.getQuantity() %></td>
+					<td><%= o.getPrice() %></td>
+					<td><%= o.getTrader() %></td>
+					<td><a data-container="body" data-toggle="popover"
+						data-placement="left" title="Notes"
+						data-content="<%= o.getNotes() %>"> Display </a></td>
+				</tr>
+    		<%
+    	}
+    }%>
+
 </table>

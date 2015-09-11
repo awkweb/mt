@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 
 <%@page import="com.mt.bean.Portfolio"%>    
-<%@page import="com.mt.bean.Position"%>
+<%@page import="com.mt.bean.Order"%>
 
 <table class="table table-bordered table-hover rowlink" data-link="row">
 	<tr>
@@ -13,12 +13,12 @@
 		<th>Percentage</th>
 	</tr>
 	
-	<% for (Position pos : positions) { %>
+	<% for (Order pos : positions) { %>
 	<tr>
 		<td><%= pos.getSymbol() %></td>
 		<td><%= pos.getQuantity() %></td>
-		<td>$<%= (Math.round(pos.getAvgPrice() * 100.0) / 100.0) %></td>
-		<td>$<%= (Math.round(pos.getQuantity() * pos.getAvgPrice() * 100.0) / 100.0) %></td>
+		<td>$<%= (Math.round(pos.getPrice() * 100.0) / 100.0) %></td>
+		<td>$<%= (Math.round(pos.getQuantity() * pos.getPrice() * 100.0) / 100.0) %></td>
 		<td><%= (Math.round(pos.getPercentage(portfolio.getTotalQuantity()) * 100.0) / 100.0) %>%</td>
 	</tr>
 	<% } %>

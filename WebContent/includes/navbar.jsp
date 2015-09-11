@@ -17,7 +17,7 @@
 
 				<li
 					class="<%if (pageTitle.equals("Positions")) {%>active<%}%>"><a
-					href="/mt/pmPositions.jsp">Positions<span class="sr-only">(current)</span></a></li>
+					href="/mt/positionDisplayServlet">Positions<span class="sr-only">(current)</span></a></li>
 				<li
 					class="<%if (pageTitle.equals("Orders")) {%>active<%}%>"><a
 					href="/mt/orderDisplayServlet">Orders</a></li>
