@@ -6,15 +6,16 @@
 <%@page import="com.mt.bean.PortfolioManager"%>
 <%@page import="com.mt.bean.Portfolio"%>
 <%@page import="com.mt.bean.Position"%>
+<%@page import="com.mt.bean.Order"%>
     
 <%! int firstCollapse = 0; %>
-<%! ArrayList<Position> positions; %>
+<%! ArrayList<Order> positions; %>
 
 <div class="row">
 	<div class="col-sm-12">
 		
 		<% for (Portfolio portfolio : pm.getPortfolios()) { %>
-			<% positions = portfolio.getPositions(); %>
+			<% positions = portfolio.getOpenOrders(); %>
 			<%@ include file="panel.jsp"%>
 			<% firstCollapse++; %>
 		<% } %>

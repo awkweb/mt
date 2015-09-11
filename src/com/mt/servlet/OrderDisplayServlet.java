@@ -33,5 +33,9 @@ public class OrderDisplayServlet extends HttpServlet implements Servlet {
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
 		rd.forward(request, response);
 	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
+		this.doGet(request, response);
+	}
 
 }

@@ -8,7 +8,16 @@ public class Portfolio {
 	private String name;
 	private ArrayList<Position> positions;
 	private int totalQuantity;
+	private ArrayList<Order> openOrders;
 	
+	public ArrayList<Order> getOpenOrders() {
+		return openOrders;
+	}
+
+	public void setOpenOrders(ArrayList<Order> openOrders) {
+		this.openOrders = openOrders;
+	}
+
 	public Portfolio(int id, String name, ArrayList<Position> positions) {
 		super();
 		this.id = id;

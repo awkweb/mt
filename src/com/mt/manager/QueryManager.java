@@ -55,6 +55,34 @@ public class QueryManager {
 		return orders;		
 	}
 	
+	public ArrayList<Order> getOpenOrders(int portfolioId){		
+		String sql = "SELECT * FROM orders WHERE port_id=? AND status='open' group by symbol";
+		ArrayList<Order> orders = new ArrayList<Order>();
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, portfolioId);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				int quantity = rs.getInt("quantity");
+				String symbol = rs.getString("symbol");
+				String side = rs.getString("side");
+				String type = rs.getString("type");
+				double price = rs.getDouble("price");
+				int trader = rs.getInt("trader");
+				String notes = rs.getString("notes");	
+				int block_order_id = rs.getInt("block_order_id");
+				Order order = new Order(id, symbol, quantity, side, type, price, trader, notes);
+				order.setBlock_order_id(block_order_id);
+				order.setStatus(rs.getString("status"));
+				orders.add(order);
+			}				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return orders;		
+	}
+	
 	public HashMap<String, ArrayList<Order>> getOrderMap(int portfolioId, String symbol){
 		HashMap<String, ArrayList<Order>> map = new HashMap<String, ArrayList<Order>>();
 		String[] statuses = {"open", "sent for execution", "successful", "expired", "partially filled", "cancelled"};
@@ -113,6 +141,7 @@ public class QueryManager {
 				ArrayList<Position> positions = getPortfolioPositions(portfolioId);
 				portfolio.setPositions(positions);
 				portfolio.setName(rs.getString("name"));
+				portfolio.setOpenOrders(getOpenOrders(portfolioId));
 			}				
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -288,6 +317,22 @@ public class QueryManager {
 			e.printStackTrace();
 		}
 		return orders;		
+	}
+	
+	public int getIdFromName(String fname, String lname){
+		String sql = "SELECT userid FROM users WHERE fname=? AND lname=?";
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, fname);
+			ps.setString(2, lname);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				return rs.getInt("userid");		
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 	
 }

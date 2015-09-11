@@ -117,6 +117,10 @@ public class Order {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public double getPercentage(int totalPortfolioQuantity){
+		return ((double)this.quantity / (double)totalPortfolioQuantity) * 100.00;
+	}
 
 
 }

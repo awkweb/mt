@@ -51,12 +51,12 @@
 								<div class="panel-heading" role="tab" id="heading<%=portfolio.getName()%>">
 									<h4 class="panel-title">
 										<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-											href="#collapse<%=portfolio.getName()%>open" aria-expanded="false"
+											href="#collapse<%=portfolio.getName()%>open" aria-expanded="true"
 											aria-controls="collapseOne"><%= portfolio.getName() %></a>
 									</h4>
 								</div>
 								
-								<div id="collapse<%=portfolio.getName()%>open" class="panel-collapse collapse"
+								<div id="collapse<%=portfolio.getName()%>open" class="panel-collapse collapse in"
 									role="tabpanel" aria-labelledby="heading<%=portfolio.getName()%>">
 					
 								<table class="table table-bordered table-hover rowlink" data-link="row">
@@ -64,6 +64,7 @@
 										<th>Order ID</th>
 										<th>Symbol</th>
 										<th>Side</th>
+										<th>Type</th>
 										<th>Quantity</th>
 										<th>Price</th>
 										<th>Trader</th>
@@ -81,6 +82,7 @@
 											<td><%= o.getId() %></td>
 											<td><%= o.getSymbol() %></td>
 											<td><%= o.getSide() %></td>
+											<td><%= o.getType() %></td>
 											<td><%= o.getQuantity() %></td>
 											<td><%= o.getPrice() %></td>
 											<td><%= o.getTrader() %></td>
@@ -116,12 +118,12 @@
 								<div class="panel-heading" role="tab" id="heading<%=portfolio.getName()%>">
 									<h4 class="panel-title">
 										<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-											href="#collapse<%=portfolio.getName()%>sentForExecution" aria-expanded="false"
+											href="#collapse<%=portfolio.getName()%>sentForExecution" aria-expanded="true"
 											aria-controls="collapseOne"><%= portfolio.getName() %></a>
 									</h4>
 								</div>
 								
-								<div id="collapse<%=portfolio.getName()%>sentForExecution" class="panel-collapse collapse"
+								<div id="collapse<%=portfolio.getName()%>sentForExecution" class="panel-collapse collapse in"
 									role="tabpanel" aria-labelledby="heading<%=portfolio.getName()%>">
 					
 								<table class="table table-bordered table-hover rowlink" data-link="row">
@@ -129,6 +131,7 @@
 										<th>Order ID</th>
 										<th>Symbol</th>
 										<th>Side</th>
+										<th>Type</th>
 										<th>Quantity</th>
 										<th>Price</th>
 										<th>Trader</th>
@@ -146,6 +149,7 @@
 											<td><%= o.getId() %></td>
 											<td><%= o.getSymbol() %></td>
 											<td><%= o.getSide() %></td>
+											<td><%= o.getType() %></td>
 											<td><%= o.getQuantity() %></td>
 											<td><%= o.getPrice() %></td>
 											<td><%= o.getTrader() %></td>
@@ -178,15 +182,15 @@
 							
 
 							<div class="panel panel-default">
-								<div class="panel-heading" role="tab" id="heading<%=portfolio.getName()%>successful">
+								<div class="panel-heading" role="tab" id="heading<%=portfolio.getName()%>">
 									<h4 class="panel-title">
 										<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-											href="#collapse<%=portfolio.getName()%>" aria-expanded="false"
+											href="#collapse<%=portfolio.getName()%>successful" aria-expanded="true"
 											aria-controls="collapseOne"><%= portfolio.getName() %></a>
 									</h4>
 								</div>
 								
-								<div id="collapse<%=portfolio.getName()%>successful" class="panel-collapse collapse"
+								<div id="collapse<%=portfolio.getName()%>successful" class="panel-collapse collapse in"
 									role="tabpanel" aria-labelledby="heading<%=portfolio.getName()%>">
 					
 								<table class="table table-bordered table-hover rowlink" data-link="row">
@@ -194,6 +198,7 @@
 										<th>Order ID</th>
 										<th>Symbol</th>
 										<th>Side</th>
+										<th>Type</th>
 										<th>Quantity</th>
 										<th>Price</th>
 										<th>Trader</th>
@@ -211,6 +216,7 @@
 											<td><%= o.getId() %></td>
 											<td><%= o.getSymbol() %></td>
 											<td><%= o.getSide() %></td>
+											<td><%= o.getType() %></td>
 											<td><%= o.getQuantity() %></td>
 											<td><%= o.getPrice() %></td>
 											<td><%= o.getTrader() %></td>
@@ -243,15 +249,15 @@
 							
 
 							<div class="panel panel-default">
-								<div class="panel-heading" role="tab" id="heading<%=portfolio.getName()%>expired">
+								<div class="panel-heading" role="tab" id="heading<%=portfolio.getName()%>">
 									<h4 class="panel-title">
 										<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-											href="#collapse<%=portfolio.getName()%>" aria-expanded="false"
+											href="#collapse<%=portfolio.getName()%>expired" aria-expanded="true"
 											aria-controls="collapseOne"><%= portfolio.getName() %></a>
 									</h4>
 								</div>
 								
-								<div id="collapse<%=portfolio.getName()%>expired" class="panel-collapse collapse"
+								<div id="collapse<%=portfolio.getName()%>expired" class="panel-collapse collapse in"
 									role="tabpanel" aria-labelledby="heading<%=portfolio.getName()%>">
 					
 								<table class="table table-bordered table-hover rowlink" data-link="row">
@@ -259,6 +265,7 @@
 										<th>Order ID</th>
 										<th>Symbol</th>
 										<th>Side</th>
+										<th>Type</th>
 										<th>Quantity</th>
 										<th>Price</th>
 										<th>Trader</th>
@@ -276,6 +283,7 @@
 											<td><%= o.getId() %></td>
 											<td><%= o.getSymbol() %></td>
 											<td><%= o.getSide() %></td>
+											<td><%= o.getType() %></td>
 											<td><%= o.getQuantity() %></td>
 											<td><%= o.getPrice() %></td>
 											<td><%= o.getTrader() %></td>
@@ -311,12 +319,12 @@
 								<div class="panel-heading" role="tab" id="heading<%=portfolio.getName()%>">
 									<h4 class="panel-title">
 										<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-											href="#collapse<%=portfolio.getName()%>partiallyFilled" aria-expanded="false"
+											href="#collapse<%=portfolio.getName()%>partiallyFilled" aria-expanded="true"
 											aria-controls="collapseOne"><%= portfolio.getName() %></a>
 									</h4>
 								</div>
 								
-								<div id="collapse<%=portfolio.getName()%>partiallyFilled" class="panel-collapse collapse"
+								<div id="collapse<%=portfolio.getName()%>partiallyFilled" class="panel-collapse collapse in"
 									role="tabpanel" aria-labelledby="heading<%=portfolio.getName()%>">
 					
 								<table class="table table-bordered table-hover rowlink" data-link="row">
@@ -324,6 +332,7 @@
 										<th>Order ID</th>
 										<th>Symbol</th>
 										<th>Side</th>
+										<th>Type</th>
 										<th>Quantity</th>
 										<th>Price</th>
 										<th>Trader</th>
@@ -341,6 +350,7 @@
 											<td><%= o.getId() %></td>
 											<td><%= o.getSymbol() %></td>
 											<td><%= o.getSide() %></td>
+											<td><%= o.getType() %></td>
 											<td><%= o.getQuantity() %></td>
 											<td><%= o.getPrice() %></td>
 											<td><%= o.getTrader() %></td>
@@ -376,12 +386,12 @@
 								<div class="panel-heading" role="tab" id="heading<%=portfolio.getName()%>">
 									<h4 class="panel-title">
 										<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-											href="#collapse<%=portfolio.getName()%>cancelled" aria-expanded="false"
+											href="#collapse<%=portfolio.getName()%>cancelled" aria-expanded="true"
 											aria-controls="collapseOne"><%= portfolio.getName() %></a>
 									</h4>
 								</div>
 								
-								<div id="collapse<%=portfolio.getName()%>cancelled" class="panel-collapse collapse"
+								<div id="collapse<%=portfolio.getName()%>cancelled" class="panel-collapse collapse in"
 									role="tabpanel" aria-labelledby="heading<%=portfolio.getName()%>">
 					
 								<table class="table table-bordered table-hover rowlink" data-link="row">
@@ -389,6 +399,7 @@
 										<th>Order ID</th>
 										<th>Symbol</th>
 										<th>Side</th>
+										<th>Type</th>
 										<th>Quantity</th>
 										<th>Price</th>
 										<th>Trader</th>
@@ -406,6 +417,7 @@
 											<td><%= o.getId() %></td>
 											<td><%= o.getSymbol() %></td>
 											<td><%= o.getSide() %></td>
+											<td><%= o.getType() %></td>
 											<td><%= o.getQuantity() %></td>
 											<td><%= o.getPrice() %></td>
 											<td><%= o.getTrader() %></td>
